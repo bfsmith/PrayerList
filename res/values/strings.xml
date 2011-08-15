@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, PrayerListActivity!</string>
+    <string name="app_name">PrayerList</string>
+    <string name="AddPrayer">Add</string>
+    <string name="Active">Active</string>
+    <string name="Answered">Answered</string>
+    <string name="NoActivePrayers">No Active Prayers</string>
+    <string name="Save">Save</string>
+    <string name="Prayer">Prayer</string>
+    <string name="Description">Description</string>
+    <string name="Cancel">Cancel</string>
+    <string name="NoTitleText">Please specify a title.</string>
+    <string name="Debug">Debug</string>
+    <string name="NoAnsweredPrayers">No answered prayer... yet</string>
+    <string name="DateAnswered">Date Answered</string>
+</resources>
