@@ -1,0 +1,1 @@
+This is a simple prayer list app created for the Android operating system.
