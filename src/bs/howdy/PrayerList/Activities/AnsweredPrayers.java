@@ -58,7 +58,7 @@ public class AnsweredPrayers extends ListActivity {
 		Prayer p = (Prayer)this.getListAdapter().getItem(position);
 		Log.v(Constants.LOG_TAG, "Selected " + p.Title);
 		
-		Intent editIntent = new Intent(this, ActivePrayerInfo.class);
+		Intent editIntent = new Intent(this, AnsweredPrayerInfo.class);
 		editIntent.putExtra(Constants.Extras.ID, p.Id);
 		startActivityForResult(editIntent, Constants.Requests.PRAYER_CREATEUPDATE);
 	}

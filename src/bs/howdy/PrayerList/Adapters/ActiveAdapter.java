@@ -1,6 +1,5 @@
 package bs.howdy.PrayerList.Adapters;
 
-import java.util.Date;
 import java.util.List;
 
 import bs.howdy.PrayerList.*;
@@ -41,12 +40,12 @@ public class ActiveAdapter extends ArrayAdapter<Prayer> {
 		Prayer p = getCount() > position ? getItem(position) : null;
 		if(p == null) return null;
 			
-		final int id = p.Id;
+//		final int id = p.Id;
 		
 		TextView title = (TextView) rowView.findViewById(R.id.activeTitle);
-		title.setText(truncateString(p.Title, 20));
+		title.setText(truncateString(p.Title, 100));
 		TextView description = (TextView) rowView.findViewById(R.id.activeDescription);
-		description.setText(truncateString(p.Description, 32));
+		description.setText(truncateString(p.Description, 100));
 		
 //		Button answeredButton = (Button) rowView.findViewById(R.id.answeredButton);
 //		answeredButton.setOnClickListener(new View.OnClickListener() {

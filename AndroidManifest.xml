@@ -13,5 +13,6 @@
 		<activity android:name=".Activities.ActivePrayers" />
 		<activity android:name=".Activities.AnsweredPrayers" />
 		<activity android:name=".Activities.ActivePrayerInfo"></activity>
+		<activity android:name=".Activities.AnsweredPrayerInfo"></activity>
     </application>
 </manifest>

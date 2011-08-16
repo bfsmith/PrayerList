@@ -16,15 +16,19 @@ public final class R {
         public static final int icon=0x7f020002;
     }
     public static final class id {
-        public static final int LinearLayout01=0x7f060008;
+        public static final int LinearLayout01=0x7f06000c;
         public static final int activeDescription=0x7f060001;
         public static final int activeTitle=0x7f060003;
         public static final int answeredButton=0x7f060002;
-        public static final int answeredDate=0x7f060007;
-        public static final int answeredDescription=0x7f060004;
-        public static final int answeredTitle=0x7f060005;
-        public static final int dateAnsweredText=0x7f060006;
+        public static final int answeredDate=0x7f060008;
+        public static final int answeredDescription=0x7f06000a;
+        public static final int answeredTitle=0x7f06000b;
+        public static final int createdDate=0x7f060006;
+        public static final int dateAnsweredText=0x7f060007;
+        public static final int dateCreatedText=0x7f060005;
+        public static final int description=0x7f060009;
         public static final int linearLayout1=0x7f060000;
+        public static final int title=0x7f060004;
     }
     public static final class id_active_prayer {
         public static final int cancelButton=0x7f070002;
@@ -37,8 +41,9 @@ public final class R {
         public static final int active_prayer=0x7f030001;
         public static final int active_prayer_list_item=0x7f030002;
         public static final int answered_list=0x7f030003;
-        public static final int answered_prayer_list_item=0x7f030004;
-        public static final int main=0x7f030005;
+        public static final int answered_prayer=0x7f030004;
+        public static final int answered_prayer_list_item=0x7f030005;
+        public static final int main=0x7f030006;
     }
     public static final class raw {
         public static final int sql=0x7f040000;
@@ -49,6 +54,7 @@ public final class R {
         public static final int Answered=0x7f050004;
         public static final int Cancel=0x7f050009;
         public static final int DateAnswered=0x7f05000d;
+        public static final int DateFormat=0x7f05000e;
         public static final int Debug=0x7f05000b;
         public static final int Description=0x7f050008;
         public static final int NoActivePrayers=0x7f050005;

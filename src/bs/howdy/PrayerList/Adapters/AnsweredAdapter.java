@@ -18,7 +18,7 @@ public class AnsweredAdapter extends ArrayAdapter<Prayer> {
 	public AnsweredAdapter(Activity context, List<Prayer> prayers) {
 		super(context, R.layout.answered_prayer_list_item, prayers);
 		_context = context;
-		_dateFormat = new SimpleDateFormat("MMMM d");
+		_dateFormat = new SimpleDateFormat(App.getContext().getString(R.string.DateFormat));
 	}
 
 	public void update() {

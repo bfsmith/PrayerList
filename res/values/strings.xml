@@ -14,4 +14,5 @@
     <string name="Debug">Debug</string>
     <string name="NoAnsweredPrayers">No answered prayer... yet</string>
     <string name="DateAnswered">Date Answered</string>
+    <string name="DateFormat">MMMM d, yyyy</string>
 </resources>
