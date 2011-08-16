@@ -19,7 +19,6 @@ public class AnsweredAdapter extends ArrayAdapter<Prayer> {
 		super(context, R.layout.answered_prayer_list_item, prayers);
 		_context = context;
 		_dateFormat = new SimpleDateFormat("MMMM d");
-		setPrayers(prayers);
 	}
 
 	public void update() {
@@ -64,6 +63,7 @@ public class AnsweredAdapter extends ArrayAdapter<Prayer> {
 	}
 	
 	private String formatDate(Date date) {
+		if(date == null) return "";
 		return _dateFormat.format(date);
 	}
 }

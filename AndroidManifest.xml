@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="bs.howdy.PrayerList"
-      android:versionCode="1"
-      android:versionName="1.0">
-    <uses-sdk android:minSdkVersion="8" /><application android:icon="@drawable/icon" android:label="@string/app_name">
-        <activity android:label="@string/app_name" android:name="PrayerListMainActivity">
+      android:versionCode="1" android:versionName="0.1">
+    <uses-sdk android:minSdkVersion="8" />
+<application android:icon="@drawable/icon" android:label="@string/app_name" android:name="App" android:enabled="true">
+        <activity android:label="@string/app_name" android:name=".Activities.PrayerListMainActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER"></category>
                 <action android:name="android.intent.action.MAIN"></action>
@@ -13,8 +13,5 @@
 		<activity android:name=".Activities.ActivePrayers" />
 		<activity android:name=".Activities.AnsweredPrayers" />
 		<activity android:name=".Activities.ActivePrayerInfo"></activity>
-		<activity android:name=".Activities.TestActivity"></activity>
-		<activity android:name=".Activities.SqlDebugActivity"></activity>
-		<activity android:name=".Activities.SqlDebugResultsActivity"></activity>
     </application>
 </manifest>

@@ -1,6 +1,6 @@
-package bs.howdy.PrayerList;
+package bs.howdy.PrayerList.Activities;
 
-import bs.howdy.PrayerList.Activities.*;
+import bs.howdy.PrayerList.R;
 
 import android.app.TabActivity;
 import android.content.Intent;
@@ -9,8 +9,7 @@ import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 
 public class PrayerListMainActivity extends TabActivity {
-	
-	
+
 	 /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {

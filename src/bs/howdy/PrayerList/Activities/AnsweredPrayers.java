@@ -47,10 +47,9 @@ public class AnsweredPrayers extends ListActivity {
 	}
 
     private void updateList() {
-    	_adapter.setPrayers(_dataProvider.getPrayers());
+    	_adapter.setPrayers(_dataProvider.getAnsweredPrayers());
     	_adapter.notifyDataSetChanged();
     }
-    
 
     @Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {

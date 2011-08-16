@@ -1,5 +1,8 @@
 package bs.howdy.PrayerList.Data;
 
+import bs.howdy.PrayerList.*;
+import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import bs.howdy.PrayerList.Constants;
@@ -9,17 +12,25 @@ import java.util.*;
 
 public class DataProvider {
 	private static DataProvider _instance;
-	private ArrayList<Prayer> _prayers;
-	private int _count;
+	//private Context _context;
 	protected DatabaseHelper _db;
 	private static final String[] columns_prayers = new String[] { Constants.Database.COLUMN_ID, 
 		Constants.Database.COLUMN_TITLE, Constants.Database.COLUMN_DESCRIPTION, 
 		Constants.Database.COLUMN_DATECREATED, Constants.Database.COLUMN_DATEANSWERED };
 	
 	private DataProvider() {
-		_count = 1;
-		_prayers = new ArrayList<Prayer>();
-		_db = new DatabaseHelper(PrayerListApp.getContext());
+		this(App.getContext());
+	}
+	
+	private DataProvider(Context context) {
+		//_context = context;
+		_db = new DatabaseHelper(context);
+	}
+	
+	public static DataProvider createInstance(Context context) {
+		if(_instance == null)
+			_instance = new DataProvider(context);
+		return _instance;
 	}
 	
 	public static DataProvider getInstance() {
@@ -29,58 +40,67 @@ public class DataProvider {
 	}
 
 	public ArrayList<Prayer> getPrayers() {
-		return _prayers;
-//		SQLiteDatabase db = _db.getReadableDatabase();
-//		Cursor c = db.query(Constants.Database.TABLE_PRAYERS, columns_prayers, null, null, null, null, 
-//				Constants.Database.COLUMN_ID + " ASC");
-//		return parsePrayers(c);
+		SQLiteDatabase db = _db.getReadableDatabase();
+		Cursor c = db.query(Constants.Database.TABLE_PRAYERS, columns_prayers, null, null, null, null, 
+				Constants.Database.COLUMN_ID + " ASC");
+		return parsePrayers(c);
 	}
 
 	public ArrayList<Prayer> getActivePrayers() {
-		ArrayList<Prayer> active = new ArrayList<Prayer>();
-		for(Prayer p : _prayers) {
-			if(!p.IsAnswered())
-				active.add(p);
-		}
-		return active;
+		SQLiteDatabase db = _db.getReadableDatabase();
+		Cursor c = db.query(Constants.Database.TABLE_PRAYERS, columns_prayers,  
+				Constants.Database.COLUMN_DATEANSWERED + " IS NULL", null, null, null, 
+				Constants.Database.COLUMN_ID + " ASC");
+		return parsePrayers(c);
 	}
 
 	public ArrayList<Prayer> getAnsweredPrayers() {
-		ArrayList<Prayer> answered = new ArrayList<Prayer>();
-		for(Prayer p : _prayers) {
-			if(p.IsAnswered())
-				answered.add(p);
-		}
-		return answered;
+		SQLiteDatabase db = _db.getReadableDatabase();
+		Cursor c = db.query(Constants.Database.TABLE_PRAYERS, columns_prayers,  
+				Constants.Database.COLUMN_DATEANSWERED + " IS NOT NULL", null, null, null, 
+				Constants.Database.COLUMN_ID + " ASC");
+		return parsePrayers(c);
 	}
 	
 	public Prayer getPrayer(int id) {
-		for(Prayer p : _prayers) {
-			if(p.Id == id)
-				return p;
-		}
-		return null;
+		SQLiteDatabase db = _db.getReadableDatabase();
+		Cursor c = db.query(Constants.Database.TABLE_PRAYERS, columns_prayers,  
+				Constants.Database.COLUMN_ID + " = ?", new String[] { String.valueOf(id) }, null, null,
+				null);
+		if(c.getCount() == 0) return null;
+		c.moveToFirst();
+		return parsePrayer(c);
 	}
 	
-	public void addPrayer(Prayer p) {
-		if(p.Id <= 0)
-			p.Id = _count++;
-		if(!updatePrayer(p))
-			_prayers.add(p);
-	}
-	
-	public boolean updatePrayer(Prayer p) {
-		for(int i = 0; i < _prayers.size(); i++) {
-			if(_prayers.get(i).Id == p.Id) {
-				_prayers.set(i, p);
-				return true;
-			}
+	public boolean addPrayer(Prayer p) {
+		if(p.Id > 0) {
+			return updatePrayer(p);
+		} 
+		int id = (int)_db.getWritableDatabase()
+			.insert(Constants.Database.TABLE_PRAYERS, null, createContentValues(p));
+		if(id > 0) {
+			p.Id = id;
+			return true;
 		}
 		return false;
 	}
 	
-	public void removePrayer(Prayer p) {
-		_prayers.remove(p);
+	public boolean updatePrayer(Prayer p) {
+		if(p.Id <= 0) {
+			return addPrayer(p);
+		}
+		int rowsAffected = _db.getWritableDatabase()
+				.update(Constants.Database.TABLE_PRAYERS, createContentValues(p),
+					Constants.Database.COLUMN_ID + " = ?", new String[] { String.valueOf(p.Id) });
+		return rowsAffected > 0;
+	}
+	
+	public boolean removePrayer(Prayer p) {
+		if(p.Id < 0)
+			return true;
+		int rowsAffected = _db.getWritableDatabase().delete(Constants.Database.TABLE_PRAYERS,
+					Constants.Database.COLUMN_ID + " = ?", new String[] { String.valueOf(p.Id) });
+		return rowsAffected > 0;
 	}
 	
 	protected ArrayList<Prayer> parsePrayers(Cursor c) {
@@ -93,7 +113,7 @@ public class DataProvider {
 				c.moveToNext();
 			}
 		}
-		return _prayers;
+		return prayers;
 	}
 	
 	protected Prayer parsePrayer(Cursor c) {
@@ -106,7 +126,18 @@ public class DataProvider {
 		p.AnsweredDate = stringToDate(c.getString(c.getColumnIndex(Constants.Database.COLUMN_DATEANSWERED)));
 		return p;
 	}
-
+	
+	private ContentValues createContentValues(Prayer p) {
+		ContentValues values = new ContentValues();
+		if(p.Id > 0)
+			values.put(Constants.Database.COLUMN_ID, p.Id);
+		values.put(Constants.Database.COLUMN_TITLE, p.Title);
+		values.put(Constants.Database.COLUMN_DESCRIPTION, p.Description);
+		values.put(Constants.Database.COLUMN_DATECREATED, dateToString(p.CreatedDate));
+		values.put(Constants.Database.COLUMN_DATEANSWERED, dateToString(p.AnsweredDate));
+		return values;
+	}
+	
 	protected Date stringToDate(String s) {
 		Date d = new Date();
 		if(s == null || s.equals(""))

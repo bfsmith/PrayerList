@@ -16,7 +16,6 @@ public class ActiveAdapter extends ArrayAdapter<Prayer> {
 	public ActiveAdapter(Activity context, List<Prayer> prayers) {
 		super(context, R.layout.active_prayer_list_item, prayers);
 		_context = context;
-		setPrayers(prayers);
 	}
 	
 	public void update() {
@@ -45,21 +44,22 @@ public class ActiveAdapter extends ArrayAdapter<Prayer> {
 		final int id = p.Id;
 		
 		TextView title = (TextView) rowView.findViewById(R.id.activeTitle);
-		title.setText(truncateString(p.Title, 15));
+		title.setText(truncateString(p.Title, 20));
 		TextView description = (TextView) rowView.findViewById(R.id.activeDescription);
-		description.setText(truncateString(p.Description, 20));
+		description.setText(truncateString(p.Description, 32));
 		
-		Button answeredButton = (Button) rowView.findViewById(R.id.answeredButton);
-		answeredButton.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				DataProvider dp = DataProvider.getInstance();
-				Prayer p = dp.getPrayer(id);
-				if(p == null) return;
-				p.AnsweredDate = new Date();
-				dp.updatePrayer(p);
-				update();
-			}
-		});
+//		Button answeredButton = (Button) rowView.findViewById(R.id.answeredButton);
+//		answeredButton.setOnClickListener(new View.OnClickListener() {
+//			public void onClick(View v) {
+//				DataProvider dp = DataProvider.getInstance();
+//				Prayer p = dp.getPrayer(id);
+//				if(p == null) return;
+//				p.AnsweredDate = new Date();
+//				dp.updatePrayer(p);
+//				update();
+//				notifyDataSetChanged();
+//			}
+//		});
 		
 		return rowView;
 	}

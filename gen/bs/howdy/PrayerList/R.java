@@ -17,14 +17,14 @@ public final class R {
     }
     public static final class id {
         public static final int LinearLayout01=0x7f060008;
-        public static final int activeDescription=0x7f060003;
-        public static final int activeTitle=0x7f060002;
-        public static final int answeredButton=0x7f060004;
+        public static final int activeDescription=0x7f060001;
+        public static final int activeTitle=0x7f060003;
+        public static final int answeredButton=0x7f060002;
         public static final int answeredDate=0x7f060007;
-        public static final int answeredDescription=0x7f060006;
+        public static final int answeredDescription=0x7f060004;
         public static final int answeredTitle=0x7f060005;
+        public static final int dateAnsweredText=0x7f060006;
         public static final int linearLayout1=0x7f060000;
-        public static final int relativeLayout1=0x7f060001;
     }
     public static final class id_active_prayer {
         public static final int cancelButton=0x7f070002;

@@ -89,6 +89,7 @@ public class ActivePrayers extends ListActivity {
 	}
     
     private void updateList() {
+    	Log.v(Constants.LOG_TAG, "ActivePrayers.updateList()");
     	_adapter.setPrayers(_dataProvider.getActivePrayers());
     	_adapter.notifyDataSetChanged();
     }

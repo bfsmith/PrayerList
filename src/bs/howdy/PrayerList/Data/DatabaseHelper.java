@@ -15,6 +15,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 import android.widget.Toast;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -28,7 +29,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		applyLatestSchemaPatches(db);
+		applyLatestSchemaPatches(db, 0);
 	}
 
 	@Override
@@ -37,8 +38,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	}
 	
 	private void applyLatestSchemaPatches(SQLiteDatabase db) {
-		int currentVersion = getCurrentSchemaVersion(db);
-		
+		applyLatestSchemaPatches(db, getCurrentSchemaVersion(db));
+	}
+
+	private void applyLatestSchemaPatches(SQLiteDatabase db, int currentVersion) {
 		ArrayList<SchemaPatch> schemaPatches = getPatches();
 		for(SchemaPatch patch : schemaPatches) {
 			if(patch.getNumber() > currentVersion) {
@@ -48,9 +51,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	}
 	
 	private int getCurrentSchemaVersion(SQLiteDatabase db) {
+		Log.v(Constants.LOG_TAG, "readonly = " + db.isReadOnly());
 		Cursor cursor = db.rawQuery("SELECT CASE ( SELECT 1 FROM sqlite_master WHERE type='table' AND name='?' ) WHEN 1 THEN MAX(?) ELSE 0 END FROM ?;"
-				, new String[] { Constants.Database.TABLE_SCHEMAPATCHES, Constants.Database.COLUMN_PATCH, 
-						Constants.Database.TABLE_SCHEMAPATCHES });
+				, new String[] { 
+						Constants.Database.TABLE_SCHEMAPATCHES, 
+						Constants.Database.COLUMN_PATCH, 
+						Constants.Database.TABLE_SCHEMAPATCHES 
+						});
 		
 		if(cursor == null)
 			return 0;
