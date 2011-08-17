@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="hello">Hello World, PrayerListActivity!</string>
-    <string name="app_name">PrayerList</string>
+    <string name="app_name">Prayer List</string>
     <string name="AddPrayer">Add</string>
     <string name="Active">Active</string>
     <string name="Answered">Answered</string>

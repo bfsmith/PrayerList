@@ -21,7 +21,7 @@ public class ActivePrayers extends ListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-        setContentView(R.layout.active_list);
+		setContentView(R.layout.active_list);        
 
         _dataProvider = DataProvider.getInstance();
         _adapter = new ActiveAdapter(this, _dataProvider.getActivePrayers());
@@ -38,6 +38,7 @@ public class ActivePrayers extends ListActivity {
 	@Override
 	public void onResume() {
 		super.onResume();
+		updateList();
 		Log.v(Constants.LOG_TAG, "ActivePrayers onResume");
 	}
 	
@@ -81,7 +82,6 @@ public class ActivePrayers extends ListActivity {
 		super.onListItemClick(l, v, position, id);
 		// Get the item that was clicked
 		Prayer p = (Prayer)this.getListAdapter().getItem(position);
-		Log.v(Constants.LOG_TAG, "Selected " + p.Title);
 		
 		Intent editIntent = new Intent(this, ActivePrayerInfo.class);
 		editIntent.putExtra(Constants.Extras.ID, p.Id);

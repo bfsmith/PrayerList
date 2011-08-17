@@ -1,6 +1,7 @@
 package bs.howdy.PrayerList.Activities;
 
 import bs.howdy.PrayerList.*;
+import bs.howdy.PrayerList.Behaviors.TitlebarBehavior;
 import bs.howdy.PrayerList.Data.*;
 import bs.howdy.PrayerList.Entities.*;
 
@@ -17,7 +18,9 @@ public class ActivePrayerInfo extends Activity {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        TitlebarBehavior titleBar = new TitlebarBehavior(this);
         setContentView(R.layout.active_prayer);
+        titleBar.setTitleBar();
         
         _dataProvider = DataProvider.getInstance();
         _id = 0;

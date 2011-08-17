@@ -3,6 +3,7 @@ package bs.howdy.PrayerList.Activities;
 import java.text.SimpleDateFormat;
 
 import bs.howdy.PrayerList.*;
+import bs.howdy.PrayerList.Behaviors.TitlebarBehavior;
 import bs.howdy.PrayerList.Data.*;
 import bs.howdy.PrayerList.Entities.*;
 
@@ -18,7 +19,9 @@ public class AnsweredPrayerInfo extends Activity {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        TitlebarBehavior titleBar = new TitlebarBehavior(this);
         setContentView(R.layout.answered_prayer);
+        titleBar.setTitleBar();
         _dateFormat = new SimpleDateFormat(App.getContext().getString(R.string.DateFormat));
         
         _dataProvider = DataProvider.getInstance();
