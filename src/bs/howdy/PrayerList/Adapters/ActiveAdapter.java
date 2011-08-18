@@ -40,35 +40,11 @@ public class ActiveAdapter extends ArrayAdapter<Prayer> {
 		Prayer p = getCount() > position ? getItem(position) : null;
 		if(p == null) return null;
 			
-//		final int id = p.Id;
-		
 		TextView title = (TextView) rowView.findViewById(R.id.activeTitle);
-		title.setText(truncateString(p.Title, 100));
+		title.setText(p.Title);
 		TextView description = (TextView) rowView.findViewById(R.id.activeDescription);
-		description.setText(truncateString(p.Description, 100));
-		
-//		Button answeredButton = (Button) rowView.findViewById(R.id.answeredButton);
-//		answeredButton.setOnClickListener(new View.OnClickListener() {
-//			public void onClick(View v) {
-//				DataProvider dp = DataProvider.getInstance();
-//				Prayer p = dp.getPrayer(id);
-//				if(p == null) return;
-//				p.AnsweredDate = new Date();
-//				dp.updatePrayer(p);
-//				update();
-//				notifyDataSetChanged();
-//			}
-//		});
+		description.setText(p.Description);
 		
 		return rowView;
 	}
-
-	private String truncateString(String s, int length) {
-		if(s == null) return "";
-		s = s.replace("\n", "").replace("\r", "");
-		if(s.length() <= length) return s;
-		int lastSpace = s.substring(0, length).lastIndexOf(" ");
-		return lastSpace > 0 ? s.substring(0, lastSpace) : s.substring(0, length);
-	}
-	
 }

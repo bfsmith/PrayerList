@@ -1,10 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
- <LinearLayout android:id="@+id/linearLayout1" android:layout_width="fill_parent" android:layout_height="fill_parent" android:orientation="vertical" xmlns:android="http://schemas.android.com/apk/res/android">
+ <RelativeLayout
+ 	android:layout_width="fill_parent" 
+	android:layout_height="fill_parent"
+	xmlns:android="http://schemas.android.com/apk/res/android">
      <ListView android:id="@id/android:list"
-	     android:layout_width="wrap_content"
-	     android:layout_height="wrap_content"/>
+	     android:layout_centerInParent="true" android:layout_width="match_parent" android:layout_height="match_parent"/>
 	<TextView android:id="@id/android:empty"
-	     android:layout_width="wrap_content"
+	     android:layout_width="fill_parent"
 	     android:layout_height="wrap_content"
-	     android:text="@string/NoActivePrayers"/>
- </LinearLayout>
+	     android:text="@string/NoActivePrayers"
+	     android:layout_alignParentTop="true"
+	     android:layout_alignParentLeft="true"
+	     android:layout_above="@+id/LinearLayout01"
+	     />
+	<LinearLayout
+		android:id="@+id/LinearLayout01"
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:weightSum="2"
+		android:background="#60ffffff"
+		android:paddingTop="4dp" 
+		android:orientation="horizontal"
+		android:visibility="gone">
+		<Button android:text="@string/Answered"
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content" 
+			android:layout_weight="1" 
+			android:onClick="prayersAnswered" />
+		<Button android:text="@string/Delete"
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content" 
+			android:layout_weight="1" 
+			android:onClick="deletePrayers" /> 
+	</LinearLayout>
+ </RelativeLayout>

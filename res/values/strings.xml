@@ -15,4 +15,5 @@
     <string name="NoAnsweredPrayers">No answered prayer... yet</string>
     <string name="DateAnswered">Date Answered</string>
     <string name="DateFormat">MMMM d, yyyy</string>
+    <string name="Delete">Delete</string>
 </resources>
