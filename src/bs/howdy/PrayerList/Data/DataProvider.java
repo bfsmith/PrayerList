@@ -113,6 +113,7 @@ public class DataProvider {
 				c.moveToNext();
 			}
 		}
+		c.close();
 		return prayers;
 	}
 	

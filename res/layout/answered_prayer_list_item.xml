@@ -20,27 +20,18 @@
 	        android:layout_toRightOf="@+id/checkBox"
 	        android:clickable="true"
 	        android:onClick="prayerSelected" >
-		    <TextView android:text="Description" 
-		    	android:id="@+id/answeredDescription" 
-		    	android:layout_width="fill_parent" 
-		    	android:layout_height="wrap_content" 
-		    	android:textSize="12dip" 
-		    	android:padding="2dip"
-		    	android:layout_below="@+id/answeredTitle"
-		    	android:layout_alignParentLeft="true"
-		        android:singleLine="true" />
-		        
 		    <TextView android:text="Title" 
-		    	android:id="@+id/answeredTitle" 
+		    	android:id="@+id/title" 
 		    	android:layout_width="fill_parent" 
 		    	android:layout_height="wrap_content" 
-		    	android:textSize="20dip" 
+		    	android:textSize="16dip" 
 		    	android:padding="2dip"
 		        android:layout_alignParentTop="true"
 		        android:layout_alignParentLeft="true"
-		        android:layout_alignWithParentIfMissing="true"
+		    	android:layout_toLeftOf="@+id/answeredDate"
 		        android:singleLine="true"
-		        android:gravity="left|center_vertical" />
+		        android:gravity="left|center_vertical"
+		        android:lines="1" />
 		    <TextView android:textSize="12dip" 
 		    	android:padding="2dip" 
 		    	android:id="@+id/answeredDate" 
@@ -48,8 +39,27 @@
 		    	android:layout_width="wrap_content" 
 		    	android:layout_height="wrap_content" 
 		    	android:text="Date"
-		    	android:layout_toLeftOf="@+id/answeredDescription"
-			    android:layout_alignParentBottom="true" 
+			    android:layout_alignParentTop="true" 
 		    	android:layout_alignParentRight="true" />
+		    <LinearLayout 
+		    	android:orientation="horizontal"
+		    	android:layout_width="fill_parent"
+		    	android:layout_height="wrap_content"
+		    	android:layout_below="@+id/title"
+		    	android:layout_alignParentLeft="true">
+		    	<ImageView android:src="@android:drawable/ic_menu_more" 
+			   		android:id="@+id/moreImage" 
+			   		android:layout_width="22dip"
+			   		android:layout_height="22dip" 
+			   		android:paddingBottom="2dip" 
+		   			android:paddingRight="2dip" />
+			    <TextView android:text="Description" 
+			    	android:id="@+id/description" 
+			    	android:layout_width="fill_parent" 
+			    	android:layout_height="wrap_content" 
+			    	android:textSize="12dip" 
+			    	android:padding="4dip" 
+			        android:lines="1" />
+	        </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>

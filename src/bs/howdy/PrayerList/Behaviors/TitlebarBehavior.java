@@ -20,14 +20,22 @@ public class TitlebarBehavior {
 	}
 	
 	public void setTitleBar() {
+		setTitleBar(true);
+	}
+	
+	public void setTitleBar(boolean showAdd) {
 		if ( _customTitleSupported ) {
         	_activity.getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.titlebar);
             ImageView image = (ImageView)_activity.findViewById(R.id.addPrayerImage);
-            image.setOnClickListener(new OnClickListener() {
-				public void onClick(View view) {
-					_activity.startActivityForResult(new Intent(_activity, ActivePrayerInfo.class), Constants.Requests.PRAYER_CREATEUPDATE);
-				}
-            });
+            if(showAdd) {
+	            image.setOnClickListener(new OnClickListener() {
+					public void onClick(View view) {
+						_activity.startActivityForResult(new Intent(_activity, ActivePrayerInfo.class), Constants.Requests.PRAYER_CREATEUPDATE);
+					}
+	            });
+            } else {
+            	image.setVisibility(View.GONE);
+            }
         }
 	}
 }

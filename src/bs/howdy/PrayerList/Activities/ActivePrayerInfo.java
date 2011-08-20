@@ -20,7 +20,7 @@ public class ActivePrayerInfo extends Activity {
         super.onCreate(savedInstanceState);
         TitlebarBehavior titleBar = new TitlebarBehavior(this);
         setContentView(R.layout.active_prayer);
-        titleBar.setTitleBar();
+        titleBar.setTitleBar(false);
         
         _dataProvider = DataProvider.getInstance();
         _id = 0;

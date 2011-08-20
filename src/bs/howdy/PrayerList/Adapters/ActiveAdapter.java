@@ -1,6 +1,6 @@
 package bs.howdy.PrayerList.Adapters;
 
-import java.util.List;
+import java.util.*;
 
 import bs.howdy.PrayerList.*;
 import bs.howdy.PrayerList.Data.DataProvider;
@@ -11,10 +11,12 @@ import android.widget.*;
 
 public class ActiveAdapter extends ArrayAdapter<Prayer> {
 	private Activity _context;
+	private HashMap<Integer, Boolean> _linesExpanded;
 
 	public ActiveAdapter(Activity context, List<Prayer> prayers) {
 		super(context, R.layout.active_prayer_list_item, prayers);
 		_context = context;
+		_linesExpanded = new HashMap<Integer, Boolean>();
 	}
 	
 	public void update() {
@@ -34,17 +36,41 @@ public class ActiveAdapter extends ArrayAdapter<Prayer> {
 	}
 	
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(final int position, View convertView, ViewGroup parent) {
 		LayoutInflater inflater = _context.getLayoutInflater();
 		View rowView = inflater.inflate(R.layout.active_prayer_list_item, null, true);
-		Prayer p = getCount() > position ? getItem(position) : null;
+		final Prayer p = getCount() > position ? getItem(position) : null;
 		if(p == null) return null;
 			
-		TextView title = (TextView) rowView.findViewById(R.id.activeTitle);
+		TextView title = (TextView) rowView.findViewById(R.id.title);
 		title.setText(p.Title);
-		TextView description = (TextView) rowView.findViewById(R.id.activeDescription);
+		TextView description = (TextView) rowView.findViewById(R.id.description);
 		description.setText(p.Description);
+		_linesExpanded.put(position, false);
+		
+		ImageView moreImage = (ImageView)rowView.findViewById(R.id.moreImage);
+		if(Utility.IsNullOrEmpty(p.Description)) {
+			moreImage.setVisibility(View.GONE);
+		} else {
+			moreImage.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					toggleDescriptions((View)v.getParent().getParent(), p, position);
+				}
+			});
+		}
 		
 		return rowView;
+	}
+	
+	private void toggleDescriptions(View view, Prayer p, int position) {
+		TextView description = (TextView) view.findViewById(R.id.description);
+		
+		if(_linesExpanded.get(position)) {
+			description.setLines(1);
+			_linesExpanded.put(position, false);
+		} else {
+			description.setLines(description.getLineCount());
+			_linesExpanded.put(position, true);
+		}
 	}
 }

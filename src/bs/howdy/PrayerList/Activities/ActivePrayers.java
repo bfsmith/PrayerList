@@ -26,7 +26,7 @@ public class ActivePrayers extends BaseListActivity {
     	_adapter.notifyDataSetChanged();
     }
 
-    public void prayerSelected(View view) {
+    public void editPrayer(View view) {
     	Prayer p = getPrayerFromView(view);
 		if(p == null) return;
 		Intent editIntent = new Intent(this, ActivePrayerInfo.class);
