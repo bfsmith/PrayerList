@@ -3,47 +3,53 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content">
-    
-    <TextView android:text="Description" 
-    	android:id="@+id/answeredDescription" 
-    	android:layout_width="fill_parent" 
-    	android:layout_height="wrap_content" 
-    	android:textSize="12dp" 
-    	android:padding="2dp"
-    	android:layout_below="@+id/answeredTitle"
-        android:layout_alignParentLeft="true" 
-        android:singleLine="true" />
-        
-    <TextView android:text="Title" 
-    	android:id="@+id/answeredTitle" 
-    	android:layout_width="fill_parent" 
-    	android:layout_height="wrap_content" 
-    	android:textSize="20dp" 
-    	android:padding="2dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true" 
-        android:layout_alignWithParentIfMissing="true"
-        android:singleLine="true"
-        android:gravity="left|center_vertical" />
-        
-	<TextView android:text="@string/DateAnswered" 
-    	android:id="@+id/dateAnsweredText" 
+    <CheckBox  
+    	android:id="@+id/checkBox" 
     	android:layout_width="wrap_content" 
     	android:layout_height="wrap_content" 
-    	android:textSize="12dp" 
-    	android:padding="2dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:singleLine="true" />
-        
-    <TextView android:text="Date" 
-    	android:id="@+id/answeredDate" 
-    	android:layout_width="wrap_content" 
-    	android:layout_height="wrap_content" 
-    	android:textSize="16dp" 
-    	android:padding="2dp"
-    	android:layout_below="@+id/dateAnsweredText"
-        android:layout_alignParentRight="true" 
-        android:singleLine="true"
-        />
+    	android:layout_alignParentTop="true" 
+    	android:layout_alignParentLeft="true" 
+    	android:layout_marginLeft="2dip" 
+    	android:layout_marginRight="4dip"
+    	android:onClick="rowChecked"
+    	/>
+    	<RelativeLayout 
+			xmlns:android="http://schemas.android.com/apk/res/android"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+	        android:layout_toRightOf="@+id/checkBox"
+	        android:clickable="true"
+	        android:onClick="prayerSelected" >
+		    <TextView android:text="Description" 
+		    	android:id="@+id/answeredDescription" 
+		    	android:layout_width="fill_parent" 
+		    	android:layout_height="wrap_content" 
+		    	android:textSize="12dip" 
+		    	android:padding="2dip"
+		    	android:layout_below="@+id/answeredTitle"
+		    	android:layout_alignParentLeft="true"
+		        android:singleLine="true" />
+		        
+		    <TextView android:text="Title" 
+		    	android:id="@+id/answeredTitle" 
+		    	android:layout_width="fill_parent" 
+		    	android:layout_height="wrap_content" 
+		    	android:textSize="20dip" 
+		    	android:padding="2dip"
+		        android:layout_alignParentTop="true"
+		        android:layout_alignParentLeft="true"
+		        android:layout_alignWithParentIfMissing="true"
+		        android:singleLine="true"
+		        android:gravity="left|center_vertical" />
+		    <TextView android:textSize="12dip" 
+		    	android:padding="2dip" 
+		    	android:id="@+id/answeredDate" 
+		    	android:singleLine="true" 
+		    	android:layout_width="wrap_content" 
+		    	android:layout_height="wrap_content" 
+		    	android:text="Date"
+		    	android:layout_toLeftOf="@+id/answeredDescription"
+			    android:layout_alignParentBottom="true" 
+		    	android:layout_alignParentRight="true" />
+    </RelativeLayout>
 </RelativeLayout>

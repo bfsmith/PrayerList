@@ -58,6 +58,7 @@ public final class R {
         public static final int Answered=0x7f060004;
         public static final int Cancel=0x7f060009;
         public static final int DateAnswered=0x7f06000d;
+        public static final int DateCreated=0x7f060010;
         public static final int DateFormat=0x7f06000e;
         public static final int Debug=0x7f06000b;
         public static final int Delete=0x7f06000f;

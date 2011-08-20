@@ -16,4 +16,5 @@
     <string name="DateAnswered">Date Answered</string>
     <string name="DateFormat">MMMM d, yyyy</string>
     <string name="Delete">Delete</string>
+    <string name="DateCreated">Date Created</string>
 </resources>
