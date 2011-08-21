@@ -2,6 +2,7 @@
  <RelativeLayout android:layout_width="fill_parent" 
 	 android:layout_height="fill_parent" 
 	 android:orientation="vertical" 
+	 android:background="@color/Black"
 	 xmlns:android="http://schemas.android.com/apk/res/android">
      <ListView android:id="@id/android:list"
 	     android:layout_centerInParent="true" 
@@ -16,11 +17,16 @@
 		android:layout_width="fill_parent" 
 		android:layout_height="wrap_content"
 		android:layout_alignParentBottom="true"
-		android:weightSum="1"
+		android:weightSum="2"
 		android:background="#60ffffff"
 		android:paddingTop="4dp" 
 		android:orientation="horizontal"
 		android:visibility="gone">
+		<Button android:text="@string/Unanswered"
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content" 
+			android:layout_weight="1" 
+			android:onClick="prayersUnanswered" />
 		<Button android:text="@string/Delete"
 			android:layout_width="wrap_content" 
 			android:layout_height="wrap_content" 

@@ -77,12 +77,15 @@ public class AnsweredAdapter extends ArrayAdapter<Prayer> {
 	
 	private void toggleDescriptions(View view, Prayer p, int position) {
 		TextView description = (TextView) view.findViewById(R.id.description);
+		ImageView triangle = (ImageView) view.findViewById(R.id.moreImage);
 		
 		if(_linesExpanded.get(position)) {
 			description.setLines(1);
+			triangle.setImageResource(R.drawable.triangle_right);
 			_linesExpanded.put(position, false);
 		} else {
 			description.setLines(description.getLineCount());
+			triangle.setImageResource(R.drawable.triangle_down);
 			_linesExpanded.put(position, true);
 		}
 	}

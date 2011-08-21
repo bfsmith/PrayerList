@@ -34,7 +34,19 @@ public class AnsweredPrayers extends BaseListActivity {
 		editIntent.putExtra(Constants.Extras.ID, p.Id);
 		startActivity(editIntent);
     }
-    
+
+    public void prayersUnanswered(View v) {
+    	for(int id : _rowsChecked) {
+    		Prayer p = DataProvider.getInstance().getPrayer(id);
+    		if(p == null) continue;
+    		p.AnsweredDate = null;
+    		DataProvider.getInstance().updatePrayer(p);
+    	}
+    	_rowsChecked.clear();
+    	hideActionButtons();
+		updateList();
+    }
+
     public void deletePrayers(View v) {
     	for(int id : _rowsChecked) {
     		Prayer p = DataProvider.getInstance().getPrayer(id);
@@ -46,5 +58,4 @@ public class AnsweredPrayers extends BaseListActivity {
     	hideActionButtons();
 		updateList();
     }
-    
 }
