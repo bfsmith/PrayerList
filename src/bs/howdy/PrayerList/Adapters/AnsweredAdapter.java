@@ -60,6 +60,11 @@ public class AnsweredAdapter extends ArrayAdapter<Prayer> {
 		if(Utility.IsNullOrEmpty(p.Description)) {
 			moreImage.setVisibility(View.GONE);
 		} else {
+			description.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					toggleDescriptions((View)v.getParent().getParent(), p, position);
+				}
+			});
 			moreImage.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {
 					toggleDescriptions((View)v.getParent().getParent(), p, position);
@@ -81,11 +86,11 @@ public class AnsweredAdapter extends ArrayAdapter<Prayer> {
 		
 		if(_linesExpanded.get(position)) {
 			description.setLines(1);
-			triangle.setImageResource(R.drawable.triangle_right);
+			triangle.setImageResource(R.drawable.circle_right);
 			_linesExpanded.put(position, false);
 		} else {
 			description.setLines(description.getLineCount());
-			triangle.setImageResource(R.drawable.triangle_down);
+			triangle.setImageResource(R.drawable.circle_down);
 			_linesExpanded.put(position, true);
 		}
 	}

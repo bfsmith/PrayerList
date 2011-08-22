@@ -29,7 +29,15 @@ public class ActivePrayers extends BaseListActivity {
     public void editPrayer(View view) {
     	Prayer p = getPrayerFromView(view);
 		if(p == null) return;
-		Intent editIntent = new Intent(this, ActivePrayerInfo.class);
+		Intent editIntent = new Intent(this, CreateEditPrayer.class);
+		editIntent.putExtra(Constants.Extras.ID, p.Id);
+		startActivityForResult(editIntent, Constants.Requests.PRAYER_CREATEUPDATE);
+    }
+
+    public void viewPrayer(View view) {
+    	Prayer p = getPrayerFromView(view);
+		if(p == null) return;
+		Intent editIntent = new Intent(this, PrayerInfo.class);
 		editIntent.putExtra(Constants.Extras.ID, p.Id);
 		startActivityForResult(editIntent, Constants.Requests.PRAYER_CREATEUPDATE);
     }
@@ -47,6 +55,8 @@ public class ActivePrayers extends BaseListActivity {
     }
 
     public void deletePrayers(View v) {
+    	// Todo: Confirm the user wants to delete
+    	
     	for(int id : _rowsChecked) {
     		Prayer p = DataProvider.getInstance().getPrayer(id);
     		if(p == null) continue;

@@ -6,9 +6,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
-import bs.howdy.PrayerList.Constants;
-import bs.howdy.PrayerList.R;
-import bs.howdy.PrayerList.Activities.ActivePrayerInfo;
+import bs.howdy.PrayerList.*;
+import bs.howdy.PrayerList.Activities.*;
 
 public class TitlebarBehavior {
 	private Activity _activity;
@@ -30,7 +29,7 @@ public class TitlebarBehavior {
             if(showAdd) {
 	            image.setOnClickListener(new OnClickListener() {
 					public void onClick(View view) {
-						_activity.startActivityForResult(new Intent(_activity, ActivePrayerInfo.class), Constants.Requests.PRAYER_CREATEUPDATE);
+						_activity.startActivityForResult(new Intent(_activity, CreateEditPrayer.class), Constants.Requests.PRAYER_CREATEUPDATE);
 					}
 	            });
             } else {

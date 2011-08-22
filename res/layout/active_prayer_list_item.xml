@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content" 
-    android:clickable="true">
-        
+    android:layout_height="wrap_content">
     <CheckBox  
     	android:id="@+id/checkBox" 
     	android:layout_width="wrap_content" 
@@ -30,19 +28,20 @@
 		    android:text="Title"
 		    android:layout_height="wrap_content" 
 		    android:lines="1"
-		    android:marqueeRepeatLimit="marquee_forever" />
+		    android:clickable="true"
+		    android:onClick="viewPrayer" />
 		<LinearLayout android:orientation="horizontal"
 	    	android:layout_width="fill_parent"
 	    	android:layout_height="wrap_content">
-		   	<ImageView android:src="@drawable/triangle_right" 
+		   	<ImageView android:src="@drawable/circle_right" 
 		   		android:id="@+id/moreImage" 
 		   		android:layout_toRightOf="@+id/checkBox"
 		   		android:layout_below="@+id/title"
-			    android:layout_alignBottom="@+id/checkBox"
+			    android:layout_toLeftOf="@+id/description"
 		   		android:layout_width="wrap_content"
 		   		android:layout_height="wrap_content"
-		   		android:paddingBottom="2dip" 
-		   		android:paddingRight="2dip" />
+		   		android:layout_marginTop="4dip"
+		   		 />
 		    <TextView android:id="@+id/description" 
 			    android:textSize="14sp" 
 			    android:layout_width="fill_parent" 

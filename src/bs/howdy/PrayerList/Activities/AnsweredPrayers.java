@@ -27,10 +27,10 @@ public class AnsweredPrayers extends BaseListActivity {
     	_adapter.notifyDataSetChanged();
     }
     
-    public void prayerSelected(View view) {
+    public void viewPrayer(View view) {
     	Prayer p = getPrayerFromView(view);
 		if(p == null) return;
-		Intent editIntent = new Intent(this, AnsweredPrayerInfo.class);
+		Intent editIntent = new Intent(this, PrayerInfo.class);
 		editIntent.putExtra(Constants.Extras.ID, p.Id);
 		startActivity(editIntent);
     }
@@ -48,6 +48,8 @@ public class AnsweredPrayers extends BaseListActivity {
     }
 
     public void deletePrayers(View v) {
+    	// Todo: Confirm the user wants to delete
+    	
     	for(int id : _rowsChecked) {
     		Prayer p = DataProvider.getInstance().getPrayer(id);
     		if(p == null) continue;

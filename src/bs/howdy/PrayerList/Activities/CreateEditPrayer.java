@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class ActivePrayerInfo extends Activity {
+public class CreateEditPrayer extends Activity {
 	private DataProvider _dataProvider;
 	private int _id;
 	
@@ -19,7 +19,7 @@ public class ActivePrayerInfo extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         TitlebarBehavior titleBar = new TitlebarBehavior(this);
-        setContentView(R.layout.active_prayer);
+        setContentView(R.layout.create_edit_prayer);
         titleBar.setTitleBar(false);
         
         _dataProvider = DataProvider.getInstance();
@@ -31,17 +31,17 @@ public class ActivePrayerInfo extends Activity {
         	_id = extras.getInt(Constants.Extras.ID);
         	Prayer p = _dataProvider.getPrayer(_id);
         	if(p != null) {
-        		EditText titleText = (EditText)findViewById(R.id_active_prayer.title);
+        		EditText titleText = (EditText)findViewById(R.id.title);
         		titleText.setText(p.Title);
-        		EditText descriptionText = (EditText)findViewById(R.id_active_prayer.description);
+        		EditText descriptionText = (EditText)findViewById(R.id.description);
         		descriptionText.setText(p.Description);
         	}
         }
 	}
 	
 	public void saveButton_Click(View view) {
-		EditText titleText = (EditText)findViewById(R.id_active_prayer.title);
-		EditText descriptionText = (EditText)findViewById(R.id_active_prayer.description);
+		EditText titleText = (EditText)findViewById(R.id.title);
+		EditText descriptionText = (EditText)findViewById(R.id.description);
 		String title = titleText.getText().toString();
 		String description = descriptionText.getText().toString();
 		 

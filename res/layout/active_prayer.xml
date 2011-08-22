@@ -1,24 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-	xmlns:android="http://schemas.android.com/apk/res/android" 
-	android:layout_width="fill_parent" 
-	android:layout_height="fill_parent">
-	<LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="fill_parent" android:weightSum="1" android:layout_marginLeft="2sp" android:layout_marginRight="2sp">
-	    <TextView android:text="@string/Prayer" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="25sp"></TextView>
-	    <EditText android:layout_height="wrap_content" android:id="@+id_active_prayer/title" android:layout_width="match_parent">
-	        <requestFocus></requestFocus>
-	    </EditText>
-	    <TextView android:text="@string/Description" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="20sp"></TextView>
-	    <EditText android:layout_height="wrap_content" android:id="@+id_active_prayer/description" android:layout_width="match_parent" android:inputType="textMultiLine" android:layout_weight="0.6" android:scrollbars="vertical" android:scrollbarAlwaysDrawVerticalTrack="false" android:gravity="top|left"></EditText>
-	</LinearLayout>
-	
-    <RelativeLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_alignParentBottom="true">
-	    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content">
-	        <Button android:text="@string/Cancel" android:id="@+id_active_prayer/cancelButton" android:layout_width="fill_parent" 
-	        	android:layout_height="wrap_content" android:layout_weight="1" android:onClick="cancelButton_Click"></Button>
-	        <Button android:text="@string/Save" android:id="@+id_active_prayer/saveButton" android:layout_width="fill_parent" 
-		        android:layout_height="wrap_content" android:layout_weight="1" android:clickable="true"
-		        android:onClick="saveButton_Click"></Button>
-	    </LinearLayout>
-    </RelativeLayout>    
-</RelativeLayout>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+    <TextView android:layout_width="wrap_content" 
+    	android:text="Title" 
+    	android:textAppearance="?android:attr/textAppearanceLarge" 
+    	android:id="@+id/title" 
+    	android:layout_height="wrap_content" />
+    <View android:layout_width="match_parent" 
+    	android:layout_height="2dip" 
+    	android:background="#FFCCCCCC"
+    	android:layout_margin="2dip"
+    	/>
+    <LinearLayout android:layout_width="match_parent" 
+    	android:layout_height="wrap_content">
+        <TextView android:text="@string/DateCreated" 
+        	android:layout_height="wrap_content" 
+        	android:layout_width="wrap_content" 
+        	android:gravity="left" />
+        <TextView android:text="Created" 
+        	android:id="@+id/createdDate" 
+        	android:layout_height="wrap_content" 
+        	android:layout_width="fill_parent"
+        	android:gravity="right"/>
+    </LinearLayout>
+    <View android:layout_width="match_parent" 
+    	android:layout_height="2dip" 
+    	android:background="#FFCCCCCC"
+    	android:layout_margin="2dip"
+    	/>
+    <TextView android:layout_width="wrap_content" 
+    android:text="Description" 
+    android:textAppearance="?android:attr/textAppearanceMedium" 
+    android:id="@+id/description" 
+    android:layout_height="wrap_content" />
+</LinearLayout>

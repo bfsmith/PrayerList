@@ -19,7 +19,7 @@
 		    android:layout_height="wrap_content"
 	        android:layout_toRightOf="@+id/checkBox"
 	        android:clickable="true"
-	        android:onClick="prayerSelected" >
+	        android:onClick="viewPrayer" >
 		    <TextView android:text="Title" 
 		    	android:id="@+id/title" 
 		    	android:layout_width="fill_parent" 
@@ -47,17 +47,16 @@
 		    	android:layout_height="wrap_content"
 		    	android:layout_below="@+id/title"
 		    	android:layout_alignParentLeft="true">
-		    	<ImageView android:src="@drawable/triangle_right" 
+		    	<ImageView android:src="@drawable/circle_right" 
 			   		android:id="@+id/moreImage" 
 			   		android:layout_width="wrap_content"
 			   		android:layout_height="wrap_content" 
-			   		android:paddingBottom="2dip" 
-		   			android:paddingRight="2dip" />
+			   		android:layout_marginTop="4dip" />
 			    <TextView android:text="Description" 
 			    	android:id="@+id/description" 
 			    	android:layout_width="fill_parent" 
 			    	android:layout_height="wrap_content" 
-			    	android:textSize="16sp" 
+			    	android:textSize="14sp" 
 			    	android:padding="4dip" 
 			        android:lines="1" />
 	        </LinearLayout>
