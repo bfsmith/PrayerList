@@ -17,7 +17,7 @@
 	     android:layout_above="@+id/LinearLayout01"
 	     />
 	<LinearLayout
-		android:id="@+id/LinearLayout01"
+		android:id="@+id/actionWrapper"
 		android:layout_width="fill_parent" 
 		android:layout_height="wrap_content"
 		android:layout_alignParentBottom="true"

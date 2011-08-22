@@ -44,6 +44,8 @@ public abstract class BaseListActivity extends ListActivity {
 	public void onResume() {
 		super.onResume();
 		_rowsChecked.clear();
+		LinearLayout ll = (LinearLayout)findViewById(R.id.actionWrapper);
+		ll.setVisibility(View.GONE);
 		updateList();
 	}
 	
@@ -107,13 +109,13 @@ public abstract class BaseListActivity extends ListActivity {
     }
     
     protected void showActionButtons() {
-    	LinearLayout ll = (LinearLayout)findViewById(R.id.LinearLayout01);
+    	LinearLayout ll = (LinearLayout)findViewById(R.id.actionWrapper);
 		ll.setVisibility(View.VISIBLE);
 		ll.startAnimation(_slideUp);
     }
     
     protected void hideActionButtons() {
-    	LinearLayout ll = (LinearLayout)findViewById(R.id.LinearLayout01);
+    	LinearLayout ll = (LinearLayout)findViewById(R.id.actionWrapper);
 		ll.startAnimation(_slideDown);
 		ll.setVisibility(View.GONE);
     }
