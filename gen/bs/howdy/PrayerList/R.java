@@ -65,13 +65,16 @@ public final class R {
         public static final int DateFormat=0x7f06000e;
         public static final int Debug=0x7f06000b;
         public static final int Delete=0x7f06000f;
+        public static final int DeleteConfirm=0x7f060012;
         public static final int Description=0x7f060008;
+        public static final int No=0x7f060014;
         public static final int NoActivePrayers=0x7f060005;
         public static final int NoAnsweredPrayers=0x7f06000c;
         public static final int NoTitleText=0x7f06000a;
         public static final int Prayer=0x7f060007;
         public static final int Save=0x7f060006;
         public static final int Unanswered=0x7f060011;
+        public static final int Yes=0x7f060013;
         public static final int app_name=0x7f060001;
         public static final int hello=0x7f060000;
     }

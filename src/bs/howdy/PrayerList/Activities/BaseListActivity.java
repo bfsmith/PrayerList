@@ -6,7 +6,9 @@ import bs.howdy.PrayerList.Constants;
 import bs.howdy.PrayerList.R;
 import bs.howdy.PrayerList.Data.DataProvider;
 import bs.howdy.PrayerList.Entities.Prayer;
+import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -78,6 +80,30 @@ public abstract class BaseListActivity extends ListActivity {
     	else if(_rowsChecked.size() == 0) {
     		hideActionButtons();
     	}
+    }
+
+    public void deletePrayers(View v) {
+    	new AlertDialog.Builder(this)
+    		.setMessage(getResources().getString(R.string.DeleteConfirm))
+	       .setCancelable(true)
+	       .setPositiveButton(getResources().getString(R.string.Yes), new DialogInterface.OnClickListener() {
+	           	public void onClick(DialogInterface dialog, int id) {
+	        	   	for(int pid : _rowsChecked) {
+		           		Prayer p = DataProvider.getInstance().getPrayer(pid);
+		           		if(p == null) continue;
+		           		DataProvider.getInstance().removePrayer(p);
+	        	   	}
+		           	_rowsChecked.clear();
+		           	hideActionButtons();
+		       		updateList();
+	           	}
+	       	})
+	       .setNegativeButton(getResources().getString(R.string.No), new DialogInterface.OnClickListener() {
+	           	public void onClick(DialogInterface dialog, int id) {    
+	           	}
+	       	})
+	       .create()
+	       .show();
     }
     
     protected void showActionButtons() {

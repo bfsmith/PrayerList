@@ -19,4 +19,7 @@
     <string name="DateCreated">Date Created</string>
     <color name="Black">#000</color>
     <string name="Unanswered">Unanswered</string>
+    <string name="DeleteConfirm">Are you sure you want to delete the selected prayer(s)?</string>
+    <string name="Yes">Yes</string>
+    <string name="No">No</string>
 </resources>

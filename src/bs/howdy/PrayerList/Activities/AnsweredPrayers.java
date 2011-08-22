@@ -1,7 +1,5 @@
 package bs.howdy.PrayerList.Activities;
 
-import java.util.Date;
-
 import bs.howdy.PrayerList.Constants;
 import bs.howdy.PrayerList.R;
 import bs.howdy.PrayerList.Adapters.*;
@@ -47,17 +45,4 @@ public class AnsweredPrayers extends BaseListActivity {
 		updateList();
     }
 
-    public void deletePrayers(View v) {
-    	// Todo: Confirm the user wants to delete
-    	
-    	for(int id : _rowsChecked) {
-    		Prayer p = DataProvider.getInstance().getPrayer(id);
-    		if(p == null) continue;
-    		p.AnsweredDate = new Date();
-    		DataProvider.getInstance().removePrayer(p);
-    	}
-    	_rowsChecked.clear();
-    	hideActionButtons();
-		updateList();
-    }
 }

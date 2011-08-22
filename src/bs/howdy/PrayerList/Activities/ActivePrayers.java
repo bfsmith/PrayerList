@@ -53,19 +53,4 @@ public class ActivePrayers extends BaseListActivity {
     	hideActionButtons();
 		updateList();
     }
-
-    public void deletePrayers(View v) {
-    	// Todo: Confirm the user wants to delete
-    	
-    	for(int id : _rowsChecked) {
-    		Prayer p = DataProvider.getInstance().getPrayer(id);
-    		if(p == null) continue;
-    		p.AnsweredDate = new Date();
-    		DataProvider.getInstance().removePrayer(p);
-    	}
-    	_rowsChecked.clear();
-    	hideActionButtons();
-		updateList();
-    }
-    
 }
