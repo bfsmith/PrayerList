@@ -13,6 +13,14 @@ public final class R {
         public static final int slide_up=0x7f040001;
     }
     public static final class attr {
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int showAdd=0x7f010000;
     }
     public static final class color {
         public static final int Black=0x7f070000;
@@ -30,7 +38,7 @@ public final class R {
     public static final class id {
         public static final int LinearLayout01=0x7f080000;
         public static final int actionWrapper=0x7f080001;
-        public static final int addPrayerImage=0x7f08000c;
+        public static final int addPrayerWrapper=0x7f08000c;
         public static final int answeredDate=0x7f080009;
         public static final int cancelButton=0x7f08000a;
         public static final int checkBox=0x7f080005;
@@ -79,4 +87,33 @@ public final class R {
         public static final int app_name=0x7f060001;
         public static final int hello=0x7f060000;
     }
+    public static final class styleable {
+        /** Attributes that can be used with a TitlebarView.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #TitlebarView_showAdd bs.howdy.PrayerList:showAdd}</code></td><td></td></tr>
+           </table>
+           @see #TitlebarView_showAdd
+         */
+        public static final int[] TitlebarView = {
+            0x7f010000
+        };
+        /**
+          <p>This symbol is the offset where the {@link bs.howdy.PrayerList.R.attr#showAdd}
+          attribute's value can be found in the {@link #TitlebarView} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name android:showAdd
+        */
+        public static final int TitlebarView_showAdd = 0;
+    };
 }

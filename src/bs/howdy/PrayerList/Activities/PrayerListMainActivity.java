@@ -1,11 +1,11 @@
 package bs.howdy.PrayerList.Activities;
 
 import bs.howdy.PrayerList.*;
-import bs.howdy.PrayerList.Behaviors.*;
 
 import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Window;
 import android.widget.*;
 import android.widget.TabHost.TabSpec;
 
@@ -15,9 +15,8 @@ public class PrayerListMainActivity extends TabActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        TitlebarBehavior titleBar = new TitlebarBehavior(this);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.main);
-        titleBar.setTitleBar();
         
         /* TabHost will have Tabs */
         TabHost tabHost = (TabHost)findViewById(android.R.id.tabhost);

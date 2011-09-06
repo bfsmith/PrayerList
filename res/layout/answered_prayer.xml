@@ -1,33 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:orientation="vertical"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent">
-    <TextView android:layout_width="wrap_content" 
-    	android:text="Title" 
-    	android:textAppearance="?android:attr/textAppearanceLarge" 
-    	android:id="@+id/title" 
-    	android:layout_height="wrap_content" />
-    <View android:layout_width="match_parent" 
-    	android:layout_height="2dip" 
-    	android:background="#FFCCCCCC"
-    	android:layout_margin="2dip"
-    	/>
-    <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
-        <TextView android:text="@string/DateCreated" android:id="@+id/dateCreatedText" android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_alignParentTop="true" android:layout_alignParentLeft="true"></TextView>
-        <TextView android:text="Created" android:id="@+id/createdDate" android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_below="@+id/dateCreatedText" android:layout_alignParentLeft="true"></TextView>
-        <TextView android:text="@string/DateAnswered" android:id="@+id/dateAnsweredText" android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_alignParentTop="true" android:layout_alignParentRight="true"></TextView>
-        <TextView android:text="Answered" android:id="@+id/answeredDate" android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_below="@+id/dateAnsweredText" android:layout_alignParentRight="true"></TextView>
-    </RelativeLayout>
-    <View android:layout_width="match_parent" 
-    	android:layout_height="2dip" 
-    	android:background="#FFCCCCCC"
-    	android:layout_margin="2dip"
-    	/>
-    <TextView android:layout_width="wrap_content" 
-    android:text="Description" 
-    android:textAppearance="?android:attr/textAppearanceMedium" 
-    android:id="@+id/description" 
-    android:layout_height="wrap_content" />
+	android:orientation="vertical" 
+	android:layout_height="fill_parent"
+	android:layout_width="fill_parent"
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:bs="http://schemas.android.com/apk/res/bs.howdy.PrayerList" >
+	<bs.howdy.PrayerList.Views.TitlebarView
+			bs:showAdd="true"
+			android:layout_height="wrap_content"
+			android:layout_width="fill_parent" />
+	<LinearLayout
+	    android:orientation="vertical"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent">
+	    <TextView android:layout_width="wrap_content" 
+	    	android:text="Title" 
+	    	android:textAppearance="?android:attr/textAppearanceLarge" 
+	    	android:id="@+id/title" 
+	    	android:layout_height="wrap_content" />
+	    <View android:layout_width="match_parent" 
+	    	android:layout_height="2dip" 
+	    	android:background="#FFCCCCCC"
+	    	android:layout_margin="2dip"
+	    	/>
+	    <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+	        <TextView android:text="@string/DateCreated" android:id="@+id/dateCreatedText" android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_alignParentTop="true" android:layout_alignParentLeft="true"></TextView>
+	        <TextView android:text="Created" android:id="@+id/createdDate" android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_below="@+id/dateCreatedText" android:layout_alignParentLeft="true"></TextView>
+	        <TextView android:text="@string/DateAnswered" android:id="@+id/dateAnsweredText" android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_alignParentTop="true" android:layout_alignParentRight="true"></TextView>
+	        <TextView android:text="Answered" android:id="@+id/answeredDate" android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_below="@+id/dateAnsweredText" android:layout_alignParentRight="true"></TextView>
+	    </RelativeLayout>
+	    <View android:layout_width="match_parent" 
+	    	android:layout_height="2dip" 
+	    	android:background="#FFCCCCCC"
+	    	android:layout_margin="2dip"
+	    	/>
+	    <TextView android:layout_width="wrap_content" 
+	    android:text="Description" 
+	    android:textAppearance="?android:attr/textAppearanceMedium" 
+	    android:id="@+id/description" 
+	    android:layout_height="wrap_content" />
+	</LinearLayout>
 </LinearLayout>

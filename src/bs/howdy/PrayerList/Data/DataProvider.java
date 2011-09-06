@@ -58,7 +58,7 @@ public class DataProvider {
 		SQLiteDatabase db = _db.getReadableDatabase();
 		Cursor c = db.query(Constants.Database.TABLE_PRAYERS, columns_prayers,  
 				Constants.Database.COLUMN_DATEANSWERED + " IS NOT NULL", null, null, null, 
-				Constants.Database.COLUMN_ID + " ASC");
+				Constants.Database.COLUMN_DATEANSWERED + " DESC");
 		return parsePrayers(c);
 	}
 	
