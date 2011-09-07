@@ -2,6 +2,7 @@ package bs.howdy.PrayerList.Views;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,8 +18,8 @@ public class TitlebarView extends LinearLayout {
 		super(context, attrs);
 		_context = context;
 		
-		boolean showAdd = attrs.getAttributeBooleanValue(R.styleable.TitlebarView_showAdd, false);
-
+		boolean showAdd = getShowAddAttribute(attrs);
+		
 		LayoutInflater layoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		layoutInflater.inflate(R.layout.titlebar, this);
 		
@@ -32,5 +33,11 @@ public class TitlebarView extends LinearLayout {
         } else {
         	layout.setVisibility(View.GONE);
         }
+	}
+	
+	private boolean getShowAddAttribute(AttributeSet attrs)
+	{
+		TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.TitlebarView);
+		return a.getBoolean(R.styleable.TitlebarView_showAdd, true);
 	}
 }
