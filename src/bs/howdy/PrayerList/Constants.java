@@ -20,12 +20,12 @@ public class Constants {
 		public static final String NAME = "prayers";
 		public static final int VERSION = 2;
 		public static final String TABLE_PRAYERS = "prayers";
-		public static final String TABLE_SCHEMAPATCHES = "schema_patches";
 		public static final String COLUMN_ID = "_id";
 		public static final String COLUMN_TITLE = "title";
 		public static final String COLUMN_DESCRIPTION = "description";
 		public static final String COLUMN_DATECREATED = "dateCreated";
 		public static final String COLUMN_DATEANSWERED = "dateAnswered";
+		public static final String COLUMN_ORDINAL = "ordinal";
 		public static final String COLUMN_PATCH = "patch";
 		
 	}

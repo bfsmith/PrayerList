@@ -7,7 +7,9 @@ import bs.howdy.PrayerList.Data.*;
 import bs.howdy.PrayerList.Entities.*;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.*;
 
 public class PrayerInfo extends Activity {
@@ -51,4 +53,16 @@ public class PrayerInfo extends Activity {
     		answeredDate.setText(_dateFormat.format(p.AnsweredDate));
 		}
 	}
+
+    public void sharePrayer(View v) {
+		Prayer p = DataProvider.getInstance().getPrayer(_id);
+		Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+		sharingIntent.setType("text/plain");
+		sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, "I want to share this prayer with you:\n" + p.Description);
+		startActivity(Intent.createChooser(sharingIntent, "Share using"));
+    }
+
+    public void addToReminders(View v) {
+		
+    }
 }

@@ -5,11 +5,14 @@ import java.util.*;
 import bs.howdy.PrayerList.*;
 import bs.howdy.PrayerList.Data.DataProvider;
 import bs.howdy.PrayerList.Entities.*;
+import bs.howdy.PrayerList.Views.DragDropListView;
+import bs.howdy.PrayerList.Views.DragDropListView.ListDragDropListener;
+import bs.howdy.PrayerList.Views.DragDropListView.ListFlingListener;
 import android.app.Activity;
 import android.view.*;
 import android.widget.*;
 
-public class ActiveAdapter extends ArrayAdapter<Prayer> {
+public class ActiveAdapter extends ArrayAdapter<Prayer> implements ListDragDropListener, ListFlingListener {
 	private Activity _context;
 	private HashMap<Integer, Boolean> _linesExpanded;
 
@@ -82,5 +85,40 @@ public class ActiveAdapter extends ArrayAdapter<Prayer> {
 			triangle.setImageResource(R.drawable.circle_down);
 			_linesExpanded.put(position, true);
 		}
+	}
+
+	public void flung(int position, int direction) {
+		Prayer p = getItem(position);
+		if(p == null) 
+			return;
+		if(direction == DragDropListView.DIRECTION_LEFT) {
+			p.AnsweredDate = new Date();
+    		DataProvider.getInstance().updatePrayer(p);
+		}
+		
+		update();
+		notifyDataSetChanged();
+	}
+
+	public void drop(int startPosition, int endPosition) {
+		if(startPosition == endPosition || endPosition < 0)
+			return;
+		
+		int lowerPosition = startPosition < endPosition
+				? startPosition : endPosition;
+		int higherPosition = startPosition > endPosition
+				? startPosition : endPosition;
+		for(int i = lowerPosition + 1; i <= higherPosition; i++) {
+			Prayer p = getItem(i);
+			p.Ordinal--;
+			DataProvider.getInstance().updatePrayer(p);
+		}
+		
+		Prayer p = getItem(startPosition);
+		p.Ordinal = endPosition;
+		DataProvider.getInstance().updatePrayer(p);
+		
+		update();
+		notifyDataSetChanged();
 	}
 }

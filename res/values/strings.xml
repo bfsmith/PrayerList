@@ -22,4 +22,6 @@
     <string name="DeleteConfirm">Are you sure you want to delete the selected prayer(s)?</string>
     <string name="Yes">Yes</string>
     <string name="No">No</string>
+    <string name="Share">Share</string>
+    <string name="RemindMe">Remind me</string>
 </resources>

@@ -16,9 +16,14 @@ public class ActivePrayers extends BaseListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		        
 		setContentView(R.layout.active_list);
         _adapter = new ActiveAdapter(this, _dataProvider.getActivePrayers());
         setListAdapter(_adapter);
+
+//        DragDropListView list = (DragDropListView)getListView();
+//        list.addDragDropListener(_adapter);
+//        list.addFlingListener(_adapter);
 	}
 
     protected void updateList() {

@@ -8,6 +8,7 @@ public class Prayer {
 	public String Description;
 	public Date CreatedDate;
 	public Date AnsweredDate;
+	public int Ordinal;
 	
 	public Prayer() {
 		Id = -1;
