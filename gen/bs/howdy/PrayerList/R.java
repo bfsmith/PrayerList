@@ -38,16 +38,17 @@ containing a value of this type.
     public static final class id {
         public static final int LinearLayout01=0x7f070000;
         public static final int actionWrapper=0x7f070001;
-        public static final int addPrayerWrapper=0x7f07000c;
-        public static final int answeredDate=0x7f070009;
-        public static final int cancelButton=0x7f07000a;
-        public static final int checkBox=0x7f070005;
+        public static final int addPrayerWrapper=0x7f07000d;
+        public static final int answeredDate=0x7f07000a;
+        public static final int cancelButton=0x7f07000b;
+        public static final int checkBox=0x7f070006;
         public static final int createdDate=0x7f070003;
-        public static final int dateAnsweredText=0x7f070008;
-        public static final int dateCreatedText=0x7f070007;
+        public static final int dateAnsweredText=0x7f070009;
+        public static final int dateCreatedText=0x7f070008;
         public static final int description=0x7f070004;
-        public static final int moreImage=0x7f070006;
-        public static final int saveButton=0x7f07000b;
+        public static final int moreImage=0x7f070007;
+        public static final int reminderButton=0x7f070005;
+        public static final int saveButton=0x7f07000c;
         public static final int title=0x7f070002;
     }
     public static final class layout {
@@ -76,11 +77,14 @@ containing a value of this type.
         public static final int No=0x7f050014;
         public static final int NoActivePrayers=0x7f050005;
         public static final int NoAnsweredPrayers=0x7f05000c;
+        public static final int NoRemindMe=0x7f050019;
         public static final int NoTitleText=0x7f05000a;
         public static final int Prayer=0x7f050007;
-        public static final int RemindMe=0x7f050016;
+        public static final int RemindMe=0x7f050018;
         public static final int Save=0x7f050006;
         public static final int Share=0x7f050015;
+        public static final int ShareAnsweredPrayerPrefix=0x7f050017;
+        public static final int ShareUnansweredPrayerPrefix=0x7f050016;
         public static final int Unanswered=0x7f050011;
         public static final int Yes=0x7f050013;
         public static final int app_name=0x7f050001;

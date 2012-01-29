@@ -23,5 +23,8 @@
     <string name="Yes">Yes</string>
     <string name="No">No</string>
     <string name="Share">Share</string>
-    <string name="RemindMe">Remind me</string>
+    <string name="ShareUnansweredPrayerPrefix">I want to share this prayer with you:\n</string>
+    <string name="ShareAnsweredPrayerPrefix">My prayer is answered!\n</string>
+    <string name="RemindMe">Remind Me</string>
+    <string name="NoRemindMe">Don\'t Remind Me</string>
 </resources>

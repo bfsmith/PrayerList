@@ -16,7 +16,7 @@
 		android:orientation="vertical"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:layout_above="@+id/actionWrapper">
+		android:layout_above="@+id/actionWrapper" >
 	    <TextView android:layout_width="wrap_content" 
 	    	android:text="Title" 
 	    	android:textAppearance="?android:attr/textAppearanceLarge" 
@@ -59,11 +59,12 @@
 		android:background="#60ffffff"
 		android:paddingTop="4dp" 
 		android:orientation="horizontal">
-		<Button android:text="@string/RemindMe"
+		<Button android:id="@+id/reminderButton" 
+			android:text="@string/RemindMe"
 			android:layout_width="wrap_content" 
 			android:layout_height="wrap_content" 
 			android:layout_weight="1" 
-			android:onClick="addToReminders" />
+			android:onClick="toggleReminder" />
 		<Button android:text="@string/Share"
 			android:layout_width="wrap_content" 
 			android:layout_height="wrap_content" 

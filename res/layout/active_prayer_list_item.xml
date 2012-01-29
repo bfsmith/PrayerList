@@ -29,7 +29,8 @@
 		    android:layout_height="wrap_content" 
 		    android:lines="1"
 		    android:clickable="true"
-		    android:onClick="viewPrayer" />
+		    android:onClick="viewPrayer"
+		    android:longClickable="true" />
 		<LinearLayout android:orientation="horizontal"
 	    	android:layout_width="fill_parent"
 	    	android:layout_height="wrap_content">

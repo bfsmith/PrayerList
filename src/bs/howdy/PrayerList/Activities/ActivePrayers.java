@@ -4,22 +4,21 @@ import java.util.Date;
 
 import bs.howdy.PrayerList.*;
 import bs.howdy.PrayerList.Adapters.*;
-import bs.howdy.PrayerList.Data.DataProvider;
 import bs.howdy.PrayerList.Entities.Prayer;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 public class ActivePrayers extends BaseListActivity {
-	private ActiveAdapter _adapter;
+	private ActiveAdapter mAdapter;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		        
 		setContentView(R.layout.active_list);
-        _adapter = new ActiveAdapter(this, _dataProvider.getActivePrayers());
-        setListAdapter(_adapter);
+        mAdapter = new ActiveAdapter(this, mPrayerService.getActivePrayers());
+        setListAdapter(mAdapter);
 
 //        DragDropListView list = (DragDropListView)getListView();
 //        list.addDragDropListener(_adapter);
@@ -27,8 +26,8 @@ public class ActivePrayers extends BaseListActivity {
 	}
 
     protected void updateList() {
-    	_adapter.setPrayers(_dataProvider.getActivePrayers());
-    	_adapter.notifyDataSetChanged();
+    	mAdapter.setPrayers(mPrayerService.getActivePrayers());
+    	mAdapter.notifyDataSetChanged();
     }
 
     public void editPrayer(View view) {
@@ -49,10 +48,10 @@ public class ActivePrayers extends BaseListActivity {
     
     public void prayersAnswered(View v) {
     	for(int id : _rowsChecked) {
-    		Prayer p = DataProvider.getInstance().getPrayer(id);
+    		Prayer p = mPrayerService.getPrayer(id);
     		if(p == null) continue;
     		p.AnsweredDate = new Date();
-    		DataProvider.getInstance().updatePrayer(p);
+    		mPrayerService.updatePrayer(p);
     	}
     	_rowsChecked.clear();
     	hideActionButtons();

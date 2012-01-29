@@ -9,6 +9,7 @@ public class SchemaPatch4 implements SchemaPatch {
 	}
 
 	public boolean applyPatch(SQLiteDatabase db) {
+		db.execSQL("CREATE TABLE IF NOT EXISTS reminders (prayerId INTEGER PRIMARY KEY);");
 		//db.execSQL("ALTER TABLE prayers ADD COLUMN ordinal INTEGER NOT NULL DEFAULT 0");
 		return true;
 	}

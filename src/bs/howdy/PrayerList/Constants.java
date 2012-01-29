@@ -19,6 +19,7 @@ public class Constants {
 	public class Database {
 		public static final String NAME = "prayers";
 		public static final int VERSION = 2;
+		
 		public static final String TABLE_PRAYERS = "prayers";
 		public static final String COLUMN_ID = "_id";
 		public static final String COLUMN_TITLE = "title";
@@ -26,7 +27,8 @@ public class Constants {
 		public static final String COLUMN_DATECREATED = "dateCreated";
 		public static final String COLUMN_DATEANSWERED = "dateAnswered";
 		public static final String COLUMN_ORDINAL = "ordinal";
-		public static final String COLUMN_PATCH = "patch";
 		
+		public static final String TABLE_REMINDERS = "reminders";
+		public static final String COLUMN_PRAYERID = "prayerId";
 	}
 }

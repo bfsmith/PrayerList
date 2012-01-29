@@ -2,12 +2,16 @@ package bs.howdy.PrayerList.Activities;
 
 import java.util.ArrayList;
 
+import com.google.inject.Inject;
+
+import roboguice.activity.RoboListActivity;
+import roboguice.inject.InjectView;
+
 import bs.howdy.PrayerList.Constants;
 import bs.howdy.PrayerList.R;
-import bs.howdy.PrayerList.Data.DataProvider;
 import bs.howdy.PrayerList.Entities.Prayer;
+import bs.howdy.PrayerList.Service.PrayerService;
 import android.app.AlertDialog;
-import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,9 +21,11 @@ import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 
-public abstract class BaseListActivity extends ListActivity {
+public abstract class BaseListActivity extends RoboListActivity {
 	
-	protected DataProvider _dataProvider;
+	@InjectView(R.id.actionWrapper) LinearLayout actionWrapper;
+	
+	protected @Inject	PrayerService mPrayerService;
 	protected ArrayList<Integer> _rowsChecked;
 	protected Animation _slideUp;
 	protected Animation _slideDown;
@@ -28,8 +34,6 @@ public abstract class BaseListActivity extends ListActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);      
 
-        _dataProvider = DataProvider.getInstance();
-        
         _rowsChecked = new ArrayList<Integer>();
         _slideUp = AnimationUtils.loadAnimation(this, R.anim.slide_up);
         _slideDown = AnimationUtils.loadAnimation(this, R.anim.slide_down);
@@ -44,8 +48,7 @@ public abstract class BaseListActivity extends ListActivity {
 	public void onResume() {
 		super.onResume();
 		_rowsChecked.clear();
-		LinearLayout ll = (LinearLayout)findViewById(R.id.actionWrapper);
-		ll.setVisibility(View.GONE);
+		actionWrapper.setVisibility(View.GONE);
 		updateList();
 	}
 	
@@ -91,9 +94,9 @@ public abstract class BaseListActivity extends ListActivity {
 	       .setPositiveButton(getResources().getString(R.string.Yes), new DialogInterface.OnClickListener() {
 	           	public void onClick(DialogInterface dialog, int id) {
 	        	   	for(int pid : _rowsChecked) {
-		           		Prayer p = DataProvider.getInstance().getPrayer(pid);
+		           		Prayer p = mPrayerService.getPrayer(pid);
 		           		if(p == null) continue;
-		           		DataProvider.getInstance().removePrayer(p);
+		           		mPrayerService.removePrayer(p);
 	        	   	}
 		           	_rowsChecked.clear();
 		           	hideActionButtons();
@@ -109,15 +112,13 @@ public abstract class BaseListActivity extends ListActivity {
     }
     
     protected void showActionButtons() {
-    	LinearLayout ll = (LinearLayout)findViewById(R.id.actionWrapper);
-		ll.setVisibility(View.VISIBLE);
-		ll.startAnimation(_slideUp);
+    	actionWrapper.setVisibility(View.VISIBLE);
+    	actionWrapper.startAnimation(_slideUp);
     }
     
     protected void hideActionButtons() {
-    	LinearLayout ll = (LinearLayout)findViewById(R.id.actionWrapper);
-		ll.startAnimation(_slideDown);
-		ll.setVisibility(View.GONE);
+    	actionWrapper.startAnimation(_slideDown);
+    	actionWrapper.setVisibility(View.GONE);
     }
     
     protected Prayer getPrayerFromView(View view) {

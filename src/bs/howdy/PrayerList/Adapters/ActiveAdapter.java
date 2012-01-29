@@ -2,9 +2,13 @@ package bs.howdy.PrayerList.Adapters;
 
 import java.util.*;
 
+import com.google.inject.Inject;
+
+import roboguice.adapter.IterableAdapter;
+
 import bs.howdy.PrayerList.*;
-import bs.howdy.PrayerList.Data.DataProvider;
 import bs.howdy.PrayerList.Entities.*;
+import bs.howdy.PrayerList.Service.PrayerService;
 import bs.howdy.PrayerList.Views.DragDropListView;
 import bs.howdy.PrayerList.Views.DragDropListView.ListDragDropListener;
 import bs.howdy.PrayerList.Views.DragDropListView.ListFlingListener;
@@ -12,18 +16,19 @@ import android.app.Activity;
 import android.view.*;
 import android.widget.*;
 
-public class ActiveAdapter extends ArrayAdapter<Prayer> implements ListDragDropListener, ListFlingListener {
-	private Activity _context;
-	private HashMap<Integer, Boolean> _linesExpanded;
+public class ActiveAdapter extends IterableAdapter<Prayer> implements ListDragDropListener, ListFlingListener {
+	private @Inject	PrayerService mPrayerService;
+	private Activity mContext;
+	private HashMap<Integer, Boolean> mLinesExpanded;
 
 	public ActiveAdapter(Activity context, List<Prayer> prayers) {
 		super(context, R.layout.active_prayer_list_item, prayers);
-		_context = context;
-		_linesExpanded = new HashMap<Integer, Boolean>();
+		mContext = context;
+		mLinesExpanded = new HashMap<Integer, Boolean>();
 	}
 	
 	public void update() {
-		setPrayers(DataProvider.getInstance().getActivePrayers());
+		setPrayers(mPrayerService.getActivePrayers());
 	}
 	
 	public void insert(Prayer prayer) {
@@ -40,7 +45,7 @@ public class ActiveAdapter extends ArrayAdapter<Prayer> implements ListDragDropL
 	
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
-		LayoutInflater inflater = _context.getLayoutInflater();
+		LayoutInflater inflater = mContext.getLayoutInflater();
 		View rowView = inflater.inflate(R.layout.active_prayer_list_item, null, true);
 		final Prayer p = getCount() > position ? getItem(position) : null;
 		if(p == null) return null;
@@ -49,12 +54,12 @@ public class ActiveAdapter extends ArrayAdapter<Prayer> implements ListDragDropL
 		title.setText(p.Title);
 		TextView description = (TextView) rowView.findViewById(R.id.description);
 		description.setText(p.Description);
-		_linesExpanded.put(position, false);
+		mLinesExpanded.put(position, false);
 		
 		description.setText(p.Description);
 		
 		ImageView moreImage = (ImageView)rowView.findViewById(R.id.moreImage);
-		if(Utility.IsNullOrEmpty(p.Description)) {
+		if(Utility.isNullOrEmpty(p.Description)) {
 			moreImage.setVisibility(View.GONE);
 		} else {
 			description.setOnClickListener(new View.OnClickListener() {
@@ -76,14 +81,14 @@ public class ActiveAdapter extends ArrayAdapter<Prayer> implements ListDragDropL
 		TextView description = (TextView) view.findViewById(R.id.description);
 		ImageView triangle = (ImageView) view.findViewById(R.id.moreImage);
 		
-		if(_linesExpanded.get(position)) {
+		if(mLinesExpanded.get(position)) {
 			description.setLines(1);
 			triangle.setImageResource(R.drawable.circle_right);
-			_linesExpanded.put(position, false);
+			mLinesExpanded.put(position, false);
 		} else {
 			description.setLines(description.getLineCount());
 			triangle.setImageResource(R.drawable.circle_down);
-			_linesExpanded.put(position, true);
+			mLinesExpanded.put(position, true);
 		}
 	}
 
@@ -93,7 +98,7 @@ public class ActiveAdapter extends ArrayAdapter<Prayer> implements ListDragDropL
 			return;
 		if(direction == DragDropListView.DIRECTION_LEFT) {
 			p.AnsweredDate = new Date();
-    		DataProvider.getInstance().updatePrayer(p);
+			mPrayerService.updatePrayer(p);
 		}
 		
 		update();
@@ -111,12 +116,12 @@ public class ActiveAdapter extends ArrayAdapter<Prayer> implements ListDragDropL
 		for(int i = lowerPosition + 1; i <= higherPosition; i++) {
 			Prayer p = getItem(i);
 			p.Ordinal--;
-			DataProvider.getInstance().updatePrayer(p);
+			mPrayerService.updatePrayer(p);
 		}
 		
 		Prayer p = getItem(startPosition);
 		p.Ordinal = endPosition;
-		DataProvider.getInstance().updatePrayer(p);
+		mPrayerService.updatePrayer(p);
 		
 		update();
 		notifyDataSetChanged();
