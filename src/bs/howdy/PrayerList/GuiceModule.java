@@ -12,6 +12,8 @@ public class GuiceModule extends AbstractAndroidModule  {
 			.to(bs.howdy.PrayerList.Implementation.PrayerService.class);
 		bind(bs.howdy.PrayerList.Service.DataProvider.class)
 			.to(bs.howdy.PrayerList.Data.DataProvider.class);
+		bind(bs.howdy.PrayerList.Service.CategoryService.class)
+			.to(bs.howdy.PrayerList.Implementation.CategoryService.class);
 	}
 
 }

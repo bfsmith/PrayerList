@@ -59,16 +59,16 @@
 		android:background="#60ffffff"
 		android:paddingTop="4dp" 
 		android:orientation="horizontal">
-		<Button android:id="@+id/reminderButton" 
+		<!-- <Button android:id="@+id/reminderButton" 
 			android:text="@string/RemindMe"
 			android:layout_width="wrap_content" 
 			android:layout_height="wrap_content" 
 			android:layout_weight="1" 
-			android:onClick="toggleReminder" />
+			android:onClick="toggleReminder" />-->
 		<Button android:text="@string/Share"
 			android:layout_width="wrap_content" 
 			android:layout_height="wrap_content" 
-			android:layout_weight="1" 
+			android:layout_weight="2" 
 			android:onClick="sharePrayer" /> 
 	</LinearLayout>
 </RelativeLayout>

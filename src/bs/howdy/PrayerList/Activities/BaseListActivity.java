@@ -1,6 +1,7 @@
 package bs.howdy.PrayerList.Activities;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.google.inject.Inject;
 
@@ -10,6 +11,7 @@ import roboguice.inject.InjectView;
 import bs.howdy.PrayerList.Constants;
 import bs.howdy.PrayerList.R;
 import bs.howdy.PrayerList.Entities.Prayer;
+import bs.howdy.PrayerList.Service.CategoryService;
 import bs.howdy.PrayerList.Service.PrayerService;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -19,13 +21,15 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 
 public abstract class BaseListActivity extends RoboListActivity {
 	
+	@Inject CategoryService mCategoryService;
 	@InjectView(R.id.actionWrapper) LinearLayout actionWrapper;
 	
-	protected @Inject	PrayerService mPrayerService;
+	protected @Inject PrayerService mPrayerService;
 	protected ArrayList<Integer> _rowsChecked;
 	protected Animation _slideUp;
 	protected Animation _slideDown;
@@ -87,6 +91,91 @@ public abstract class BaseListActivity extends RoboListActivity {
     	}
     }
 
+    public void editCategory(View v) {
+    	ArrayList<String> options = new ArrayList<String>();
+    	options.add(getResources().getString(R.string.NewCategory));
+    	options.add(getResources().getString(R.string.ClearCategory));
+    	List<String> categories = mCategoryService.getCategories();
+    	for(String cat : categories) {
+    		options.add(cat);
+    	}
+    	
+    	final String[] optionArray = new String[options.size()];
+    	options.toArray(optionArray);
+    	
+    	final RoboListActivity _this = this;
+    	new AlertDialog.Builder(this)
+    		.setTitle(R.string.PickACategory)
+    		.setCancelable(true)
+    		.setItems(optionArray, new DialogInterface.OnClickListener() {
+    			
+	           	public void onClick(DialogInterface dialog, int optionIndex) {
+	           		String picked = optionArray[optionIndex];
+	           		if(picked.equals(getResources().getString(R.string.NewCategory))) {
+	           			final EditText input = new EditText(_this);
+	           			
+	           			new AlertDialog.Builder(_this)
+	           				.setTitle(R.string.CategoryName)
+	           				.setCancelable(true)
+	           				.setView(input)
+	           				.setPositiveButton(getResources().getString(R.string.Save), new DialogInterface.OnClickListener() {
+	           					public void onClick(DialogInterface dialog, int id) {
+	           						String picked = input.getText().toString();
+	           						mCategoryService.addCategory(picked);
+	           						addPrayersToCategory(_rowsChecked, picked);
+	           						clearChecksAndUpdate();
+	           		           	}
+	           		       	})
+	           		       .setNegativeButton(getResources().getString(R.string.Cancel), new DialogInterface.OnClickListener() {
+	           		           	public void onClick(DialogInterface dialog, int id) {
+	           		           	}
+	           		       	})
+	           		       .create()
+	           		       .show();
+	           			
+	           			return;
+	           		}
+	           		else if(picked.equals(getResources().getString(R.string.ClearCategory))) {
+	           			// Keep category = null
+	           			for(int pid : _rowsChecked) {
+			           		Prayer p = mPrayerService.getPrayer(pid);
+			           		if(p == null) continue;
+	           				String cat = mCategoryService.getPrayerCategory(p);
+	           				if(cat != null)
+	           					mCategoryService.removePrayerFromCategory(p, cat);
+	           			}
+	           			clearChecksAndUpdate();
+	           			return;
+	           		}
+	           		else {
+		           		addPrayersToCategory(_rowsChecked, picked);
+		           		clearChecksAndUpdate();
+	           		}
+	           	}
+	       	})
+	       	.create()
+	       	.show();
+    }
+    
+    private void clearChecksAndUpdate() {
+    	_rowsChecked.clear();
+       	hideActionButtons();
+   		updateList();
+    }
+    
+    private void addPrayersToCategory(List<Integer> pids, String category) {
+    	for(int pid : pids) {
+       		Prayer p = mPrayerService.getPrayer(pid);
+       		if(p == null) continue;
+			String cat = mCategoryService.getPrayerCategory(p);
+			if(cat != null && cat.equals(category))
+				continue;
+			if(cat != null)
+				mCategoryService.removePrayerFromCategory(p, cat);
+       		mCategoryService.addPrayerToCategory(p, category);
+	   	}
+    }
+    
     public void deletePrayers(View v) {
     	new AlertDialog.Builder(this)
     		.setMessage(getResources().getString(R.string.DeleteConfirm))

@@ -14,7 +14,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			{
 				new SchemaPatch1(),
 				new SchemaPatch2(),
-				new SchemaPatch3(),
+//				new SchemaPatch3(),
+				//new SchemaPatch4(),
+				//new SchemaPatch5(),
 			};
 	
 	public DatabaseHelper(Context context) {

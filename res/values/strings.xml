@@ -27,4 +27,9 @@
     <string name="ShareAnsweredPrayerPrefix">My prayer is answered!\n</string>
     <string name="RemindMe">Remind Me</string>
     <string name="NoRemindMe">Don\'t Remind Me</string>
+    <string name="Category">Category</string>
+    <string name="NewCategory">New Category</string>
+    <string name="ClearCategory">Clear Category</string>
+    <string name="PickACategory">Pick A Category</string>
+    <string name="CategoryName">Category Name</string>
 </resources>

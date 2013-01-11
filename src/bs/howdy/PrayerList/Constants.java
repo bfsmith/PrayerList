@@ -18,7 +18,7 @@ public class Constants {
 	
 	public class Database {
 		public static final String NAME = "prayers";
-		public static final int VERSION = 2;
+		public static final int VERSION = 5;
 		
 		public static final String TABLE_PRAYERS = "prayers";
 		public static final String COLUMN_ID = "_id";
@@ -28,7 +28,13 @@ public class Constants {
 		public static final String COLUMN_DATEANSWERED = "dateAnswered";
 		public static final String COLUMN_ORDINAL = "ordinal";
 		
-		public static final String TABLE_REMINDERS = "reminders";
+		public static final String TABLE_CATEGORIES = "categories";
+		public static final String COLUMN_CATEGORY = "category";
+		public static final String COLUMN_CATEGORYID = "categoryId";
+		
+		public static final String TABLE_PRAYER_CATEGORIES = "prayer_categories";
 		public static final String COLUMN_PRAYERID = "prayerId";
+		
+		public static final String TABLE_REMINDERS = "reminders";
 	}
 }

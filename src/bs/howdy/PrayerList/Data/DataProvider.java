@@ -8,10 +8,13 @@ import android.database.sqlite.SQLiteDatabase;
 import bs.howdy.PrayerList.Constants;
 import bs.howdy.PrayerList.Entities.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class DataProvider implements bs.howdy.PrayerList.Service.DataProvider {
-	
+
+	private SimpleDateFormat _dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	protected DatabaseHelper _db;
 	private static final String[] columns_prayers = new String[] { Constants.Database.COLUMN_ID, 
 		Constants.Database.COLUMN_TITLE, Constants.Database.COLUMN_DESCRIPTION, 
@@ -25,11 +28,18 @@ public class DataProvider implements bs.howdy.PrayerList.Service.DataProvider {
 		_db = new DatabaseHelper(context);
 	}
 	
+	/* ************************ PRAYERS ************************ */
+	
 	public List<Prayer> getPrayers() {
 		SQLiteDatabase db = _db.getReadableDatabase();
 		Cursor c = db.query(Constants.Database.TABLE_PRAYERS, columns_prayers, null, null, null, null, 
 				Constants.Database.COLUMN_ID + " ASC");
-		return parsePrayers(c);
+
+		List<Prayer> prayers;
+		try { prayers = parsePrayers(c); }
+		catch(Exception ex) { prayers = new ArrayList<Prayer>(); }
+		finally { c.close(); }
+		return prayers;
 	}
 
 	public List<Prayer> getActivePrayers() {
@@ -37,7 +47,12 @@ public class DataProvider implements bs.howdy.PrayerList.Service.DataProvider {
 		Cursor c = db.query(Constants.Database.TABLE_PRAYERS, columns_prayers,  
 				Constants.Database.COLUMN_DATEANSWERED + " IS NULL", null, null, null, 
 				Constants.Database.COLUMN_ID + " ASC");
-		return parsePrayers(c);
+
+		List<Prayer> prayers;
+		try { prayers = parsePrayers(c); }
+		catch(Exception ex) { prayers = new ArrayList<Prayer>(); }
+		finally { c.close(); }
+		return prayers;
 	}
 
 	public List<Prayer> getAnsweredPrayers() {
@@ -45,7 +60,12 @@ public class DataProvider implements bs.howdy.PrayerList.Service.DataProvider {
 		Cursor c = db.query(Constants.Database.TABLE_PRAYERS, columns_prayers,  
 				Constants.Database.COLUMN_DATEANSWERED + " IS NOT NULL", null, null, null, 
 				Constants.Database.COLUMN_DATEANSWERED + " DESC");
-		return parsePrayers(c);
+
+		List<Prayer> prayers;
+		try { prayers = parsePrayers(c); }
+		catch(Exception ex) { prayers = new ArrayList<Prayer>(); }
+		finally { c.close(); }
+		return prayers;
 	}
 	
 	public Prayer getPrayer(int id) {
@@ -53,9 +73,15 @@ public class DataProvider implements bs.howdy.PrayerList.Service.DataProvider {
 		Cursor c = db.query(Constants.Database.TABLE_PRAYERS, columns_prayers,  
 				Constants.Database.COLUMN_ID + " = ?", new String[] { String.valueOf(id) }, null, null,
 				null);
-		if(c.getCount() == 0) return null;
+		if(c.getCount() == 0) {
+			c.close();
+			return null;
+		}
 		c.moveToFirst();
-		return parsePrayer(c);
+		Prayer prayer = null;
+		try { prayer = parsePrayer(c); }
+		finally { c.close(); }
+		return prayer;
 	}
 	
 	public boolean addPrayer(Prayer p) {
@@ -88,15 +114,138 @@ public class DataProvider implements bs.howdy.PrayerList.Service.DataProvider {
 					Constants.Database.COLUMN_ID + " = ?", new String[] { String.valueOf(prayerId) });
 		return rowsAffected > 0;
 	}
-
 	
+	/* ************************ END PRAYERS ********************** */
+	
+	/* ************************ CATEGORIES ************************ */
+	
+	public List<String> getCategories()
+	{
+		SQLiteDatabase db = _db.getReadableDatabase();
+		Cursor c = db.query(Constants.Database.TABLE_CATEGORIES, new String[] { Constants.Database.COLUMN_CATEGORY },  
+				null, null, null, null,	null);
+
+		List<String> categories = new ArrayList<String>();
+		try { 
+			if(c.getCount() == 0) {
+				c.close();
+				return new ArrayList<String>();
+			}
+			c.moveToFirst();
+			while(!c.isAfterLast()) {
+				String category = c.getString(c.getColumnIndex(Constants.Database.COLUMN_CATEGORY));
+				if(category != null)
+					categories.add(category);
+				c.moveToNext();
+			}
+		}
+		finally { c.close(); }
+		return categories;
+	}
+
+	public int getCategoryId(String category) {
+		SQLiteDatabase db = _db.getReadableDatabase();
+		Cursor c = db.query(Constants.Database.TABLE_CATEGORIES, new String[] { Constants.Database.COLUMN_CATEGORYID },  
+				Constants.Database.COLUMN_CATEGORY + " = ?", new String[] {category}, null, null, null);
+		
+		int id = -1;
+		if(c.getCount() > 0) {
+			c.moveToFirst();
+			id = c.getInt(c.getColumnIndex(Constants.Database.COLUMN_CATEGORYID));
+		}
+		c.close();
+		return id;
+	}
+	
+	public String getCategory(int categoryId) {
+		String category = null;
+		SQLiteDatabase db = _db.getReadableDatabase();
+		Cursor c = db.query(Constants.Database.TABLE_CATEGORIES, new String[] { Constants.Database.COLUMN_CATEGORY },  
+				Constants.Database.COLUMN_CATEGORYID + " = ?", new String[] {String.valueOf(categoryId)}, null, null, null);
+		try {
+			if(c.getCount() > 0) {
+				c.moveToFirst();
+				category = c.getString(c.getColumnIndex(Constants.Database.COLUMN_CATEGORY));
+			}
+		} finally {
+			c.close();
+		}
+		return category;
+	}
+	
+	public boolean categoryExists(String category) {
+		return getCategoryId(category) > 0;
+	}
+	
+	public boolean addCategory(String category) {
+		SQLiteDatabase db = _db.getWritableDatabase();
+		ContentValues values = new ContentValues();
+		values.put(Constants.Database.COLUMN_CATEGORY, category);
+		db.insert(Constants.Database.TABLE_CATEGORIES, null, values);
+		return true;
+	}
+
+	public boolean renameCategory(String oldName, String newName) {
+		SQLiteDatabase db = _db.getWritableDatabase();
+		ContentValues values = new ContentValues();
+		values.put(Constants.Database.COLUMN_CATEGORY, newName);
+		db.update(Constants.Database.TABLE_CATEGORIES, values, Constants.Database.COLUMN_CATEGORY + " = ?", new String[] {oldName});
+		return true;
+	}
+
+	public boolean removecategory(int categoryId) {
+		SQLiteDatabase db = _db.getWritableDatabase();
+		db.delete(Constants.Database.TABLE_PRAYER_CATEGORIES, Constants.Database.COLUMN_CATEGORYID + " = ?", new String[] {String.valueOf(categoryId)});
+		db.delete(Constants.Database.TABLE_CATEGORIES, Constants.Database.COLUMN_CATEGORYID + " = ?", new String[] {String.valueOf(categoryId)});
+		return true;
+	}
+	
+	public String getPrayerCategory(int prayerId) {
+		String category = null;
+		SQLiteDatabase db = _db.getReadableDatabase();
+		Cursor c = db.query(Constants.Database.TABLE_PRAYER_CATEGORIES, new String[] { Constants.Database.COLUMN_CATEGORYID },  
+				Constants.Database.COLUMN_PRAYERID + " = ?", new String[] {String.valueOf(prayerId)}, null, null, null);
+		try {
+			if(c.getCount() == 0)
+				return null;
+			c.moveToFirst();
+			int categoryId = c.getInt(c.getColumnIndex(Constants.Database.COLUMN_CATEGORYID));
+			category = getCategory(categoryId);
+		} finally {
+			c.close();
+		}
+		return category;
+	}
+
+	public boolean addPrayerToCategory(int prayerId, int categoryId) {
+		SQLiteDatabase db = _db.getWritableDatabase();
+		ContentValues values = new ContentValues();
+		values.put(Constants.Database.COLUMN_PRAYERID, String.valueOf(prayerId));
+		values.put(Constants.Database.COLUMN_CATEGORYID, String.valueOf(categoryId));
+		db.insert(Constants.Database.TABLE_PRAYER_CATEGORIES, null, values);
+		return true;
+	}
+
+	public boolean removePrayerFromCategory(int prayerId, int categoryId) {
+		SQLiteDatabase db = _db.getWritableDatabase();
+		db.delete(Constants.Database.TABLE_PRAYER_CATEGORIES, 
+				Constants.Database.COLUMN_PRAYERID + " = ? AND " + Constants.Database.COLUMN_CATEGORYID + " = ?", 
+				new String[] {String.valueOf(prayerId), String.valueOf(categoryId)});
+		return true;
+	}
+	
+	/* ********************** END CATEGORIES ********************** */
+	
+	/* ************************ REMINDERS ************************ */
 	
 	public boolean isReminderOn(Prayer p) {
 		SQLiteDatabase db = _db.getReadableDatabase();
 		Cursor c = db.query(Constants.Database.TABLE_REMINDERS, new String[] {Constants.Database.COLUMN_PRAYERID}, 
 				Constants.Database.COLUMN_PRAYERID + " = ?", new String[] { String.valueOf(p.Id) }, null, null, 
 				null);
-		return c.getCount() > 0;
+		boolean isReminderOn = c.getCount() > 0;
+		c.close();
+		return isReminderOn;
 	}
 
 	public boolean toggleReminder(Prayer p) {
@@ -115,17 +264,33 @@ public class DataProvider implements bs.howdy.PrayerList.Service.DataProvider {
 		}
 		return !isOn;
 	}
+	
 	public List<Prayer> getReminderPrayers() {
 		SQLiteDatabase db = _db.getReadableDatabase();
 		Cursor c = db.query(Constants.Database.TABLE_REMINDERS, new String[] {Constants.Database.COLUMN_PRAYERID}, null, null, null, null, 
 				null);
-		return parseReminderPrayers(c);
+
+		List<Prayer> prayers;
+		try { prayers = parseReminderPrayers(c); }
+		catch(Exception ex) { prayers = new ArrayList<Prayer>(); }
+		finally { c.close(); }
+		return prayers;
 	}
 
+	/* ********************** END REMINDERS ********************** */
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	protected List<Prayer> parsePrayers(Cursor c) {
 		ArrayList<Prayer> prayers = new ArrayList<Prayer>();
-		
 		if(c.getCount() > 0) {
 			c.moveToFirst();
 			while(!c.isAfterLast()) {
@@ -135,13 +300,12 @@ public class DataProvider implements bs.howdy.PrayerList.Service.DataProvider {
 				c.moveToNext();
 			}
 		}
-		c.close();
 		return prayers;
 	}
 	
 	protected Prayer parsePrayer(Cursor c) {
-		if(c.isAfterLast()) return null;
 		Prayer p = new Prayer();
+		if(c.isAfterLast()) return null;
 		p.Id = c.getInt(c.getColumnIndex(Constants.Database.COLUMN_ID));
 		p.Title = c.getString(c.getColumnIndex(Constants.Database.COLUMN_TITLE));
 		p.Description = c.getString(c.getColumnIndex(Constants.Database.COLUMN_DESCRIPTION));
@@ -163,7 +327,6 @@ public class DataProvider implements bs.howdy.PrayerList.Service.DataProvider {
 				c.moveToNext();
 			}
 		}
-		c.close();
 		return prayers;
 	}
 	
@@ -177,23 +340,20 @@ public class DataProvider implements bs.howdy.PrayerList.Service.DataProvider {
 		values.put(Constants.Database.COLUMN_DATEANSWERED, dateToString(p.AnsweredDate));
 		return values;
 	}
-	
+
 	protected Date stringToDate(String s) {
-		Date d = new Date();
 		if(s == null || s.equals(""))
 			return null;
-		String[] parts = s.split("-");
-		if(parts.length != 3)
-			return null;
-		d.setYear(Integer.parseInt(parts[0]));
-		d.setMonth(Integer.parseInt(parts[1]));
-		d.setDate(Integer.parseInt(parts[2]));
-		return d;
+		try {
+			return _dateFormat.parse(s);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	protected String dateToString(Date d) {
 		if(d == null) return null;
-		return d.getYear() + "-" + d.getMonth() + "-" + d.getDate();
+		return _dateFormat.format(d);
 	}
-
 }
