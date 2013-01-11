@@ -25,9 +25,22 @@ public class SchemaPatch4 implements SchemaPatch {
 		Cursor c = db.query(Constants.Database.TABLE_PRAYERS, columns_prayers, null, null, null, null, 
 				Constants.Database.COLUMN_ID + " ASC");
 		List<Prayer> prayers = parsePrayers(c);
+		c.close();
+		
+		db.execSQL("CREATE TABLE IF NOT EXISTS prayers2 (\n" + 
+				"_id INTEGER PRIMARY KEY AUTOINCREMENT, \n" +
+				"title TEXT NOT NULL, \n" + 
+				"description TEXT, \n" +
+				"dateCreated TEXT NOT NULL, \n" +
+				"dateAnswered TEXT);");
+		
 		for(Prayer p : prayers) {
 			updatePrayer(p, db);
 		}
+		
+		db.execSQL("DROP TABLE IF EXISTS " + Constants.Database.TABLE_PRAYERS);
+		db.execSQL("ALTER TABLE prayers2 RENAME TO " + Constants.Database.TABLE_PRAYERS);
+		
 		return true;
 	}
 
@@ -76,9 +89,7 @@ public class SchemaPatch4 implements SchemaPatch {
 	
 
 	public boolean updatePrayer(Prayer p, SQLiteDatabase db) {
-		int rowsAffected = db
-				.update(Constants.Database.TABLE_PRAYERS, createContentValues(p),
-					Constants.Database.COLUMN_ID + " = ?", new String[] { String.valueOf(p.Id) });
+		int rowsAffected = (int)db.insert("prayers2", null, createContentValues(p));
 		return rowsAffected > 0;
 	}
 

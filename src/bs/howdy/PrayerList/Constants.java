@@ -18,7 +18,7 @@ public class Constants {
 	
 	public class Database {
 		public static final String NAME = "prayers";
-		public static final int VERSION = 5;
+		public static final int VERSION = 4;
 		
 		public static final String TABLE_PRAYERS = "prayers";
 		public static final String COLUMN_ID = "_id";

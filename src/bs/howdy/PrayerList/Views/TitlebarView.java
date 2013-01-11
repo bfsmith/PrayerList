@@ -1,22 +1,29 @@
 package bs.howdy.PrayerList.Views;
 
+import com.google.inject.Inject;
+import roboguice.inject.*;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import bs.howdy.PrayerList.*;
 import bs.howdy.PrayerList.Activities.*;
+import bs.howdy.PrayerList.Service.SerializerService;
 
 public class TitlebarView extends LinearLayout {
 	private Context _context;
+	@Inject SerializerService mSerializerService;
 	
 	public TitlebarView(Context context, AttributeSet attrs)
 	{
 		super(context, attrs);
 		_context = context;
+		((InjectorProvider)context).getInjector().injectMembers(this);
 		
 		boolean showAdd = getShowAddAttribute(attrs);
 		
@@ -33,6 +40,13 @@ public class TitlebarView extends LinearLayout {
         } else {
         	layout.setVisibility(View.GONE);
         }
+        
+        ImageView saveImage = (ImageView)findViewById(R.id.saveLoadImg);
+        saveImage.setOnClickListener(new OnClickListener() {
+			public void onClick(View view) {
+				mSerializerService.loadAppData(_context, "data.txt");
+			}
+        });
 	}
 	
 	private boolean getShowAddAttribute(AttributeSet attrs)

@@ -1,15 +1,17 @@
 package bs.howdy.PrayerList.Activities;
 
+import roboguice.activity.RoboActivity;
+import roboguice.activity.RoboTabActivity;
 import bs.howdy.PrayerList.*;
 
-import android.app.TabActivity;
+import android.app.*;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
 import android.widget.*;
 import android.widget.TabHost.TabSpec;
 
-public class PrayerListMainActivity extends TabActivity {
+public class PrayerListMainActivity extends RoboTabActivity {
 
 	 /** Called when the activity is first created. */
     @Override
