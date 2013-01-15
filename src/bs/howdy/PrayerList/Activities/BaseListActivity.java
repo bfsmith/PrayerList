@@ -25,7 +25,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 public abstract class BaseListActivity extends RoboListActivity {
-	
 	@Inject CategoryService mCategoryService;
 	@InjectView(R.id.actionWrapper) LinearLayout actionWrapper;
 	

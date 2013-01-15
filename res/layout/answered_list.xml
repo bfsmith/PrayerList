@@ -19,7 +19,7 @@
 		android:layout_alignParentBottom="true"
 		android:weightSum="2"
 		android:background="#60ffffff"
-		android:paddingTop="4dp" 
+		android:paddingTop="4sp" 
 		android:orientation="horizontal"
 		android:visibility="gone">
 		<Button android:text="@string/Unanswered"

@@ -32,4 +32,9 @@
     <string name="ClearCategory">Clear Category</string>
     <string name="PickACategory">Pick A Category</string>
     <string name="CategoryName">Category Name</string>
+    <string name="ImportPrayers">Import Prayers</string>
+    <string name="ExportPrayers">Export Prayers</string>
+    <string name="PrayersImportedSuccess">Prayers Imported Successfully</string>
+    <string name="PrayersExportedSuccess">Prayers Exported Successfully</string>
+    <string name="ImportExportHeader">Import / Export</string>
 </resources>

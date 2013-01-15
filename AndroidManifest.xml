@@ -16,5 +16,6 @@
 		<activity android:name=".Activities.AnsweredPrayers" android:theme="@android:style/Theme.NoTitleBar" />
 		<activity android:name=".Activities.CreateEditPrayer" android:theme="@android:style/Theme.NoTitleBar" />
 		<activity android:name=".Activities.PrayerInfo" android:theme="@android:style/Theme.NoTitleBar" />
+		<activity android:name=".Activities.Settings"></activity>
     </application>
 </manifest>

@@ -2,5 +2,6 @@
 <resources>
     <declare-styleable name="TitlebarView">
 		<attr name="showAdd" format="boolean"/>
+		<attr name="showSettings" format="boolean"/>
 	</declare-styleable>
 </resources>

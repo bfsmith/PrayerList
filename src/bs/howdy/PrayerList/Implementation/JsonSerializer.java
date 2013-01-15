@@ -3,12 +3,14 @@ package bs.howdy.PrayerList.Implementation;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.util.Log;
+import bs.howdy.PrayerList.Constants;
 import bs.howdy.PrayerList.Entities.Prayer;
 import bs.howdy.PrayerList.Service.DataProvider;
 
@@ -37,7 +39,7 @@ public class JsonSerializer implements bs.howdy.PrayerList.Service.Serializer {
 		try {
 			json.put("activeprayers", activePrayers);
 		} catch (JSONException e) {
-			e.printStackTrace();
+			Log.e(Constants.LOG_TAG, "Error serializing active prayers.", e);
 		}
 		
 		JSONArray answeredPrayers = new JSONArray();
@@ -49,7 +51,7 @@ public class JsonSerializer implements bs.howdy.PrayerList.Service.Serializer {
 		try {
 			json.put("answeredprayers", answeredPrayers);
 		} catch (JSONException e) {
-			e.printStackTrace();
+			Log.e(Constants.LOG_TAG, "Error serializing answered prayers.", e);
 		}
 		
 		return json.toString();
@@ -59,14 +61,13 @@ public class JsonSerializer implements bs.howdy.PrayerList.Service.Serializer {
 		if(p == null) return null;
 		JSONObject json = new JSONObject();
 		try {
-			json.put("id", p.Id);
-		json.put("title", p.Title);
-		json.put("description", p.Description);
-		json.put("createddate", dateToString(p.CreatedDate));
-		if(p.AnsweredDate != null)
-			json.put("answereddate", dateToString(p.AnsweredDate));
+			json.put("title", p.Title);
+			json.put("description", p.Description);
+			json.put("createddate", dateToString(p.CreatedDate));
+			if(p.AnsweredDate != null)
+				json.put("answereddate", dateToString(p.AnsweredDate));
 		} catch (JSONException e) {
-			e.printStackTrace();
+			Log.e(Constants.LOG_TAG, "Error serializing prayer.", e);
 			return null;
 		}
 		return json;
@@ -80,9 +81,10 @@ public class JsonSerializer implements bs.howdy.PrayerList.Service.Serializer {
 	private Date stringToDate(String s) {
 		if(s == null) return null;
 		try {
-			return mDateFormat.parse(s);
+			Date d = mDateFormat.parse(s);
+			return d;
 		} catch (ParseException e) {
-			e.printStackTrace();
+			Log.e(Constants.LOG_TAG, "Error parsing date format: " + s, e);
 		}
 		return null;
 	}
@@ -91,15 +93,14 @@ public class JsonSerializer implements bs.howdy.PrayerList.Service.Serializer {
 		if(json == null) return null;
 		try {
 			Prayer p = new Prayer();
-			p.Id = json.getInt("id");
 			p.Title = json.getString("title");
 			p.Description = json.getString("description");
 			p.CreatedDate = stringToDate(json.getString("createddate"));
-//			if(!json.isNull("answereddate"))
-//				p.AnsweredDate = stringToDate(json.getString("answereddate"));
+			if(json.has("answereddate"))
+				p.AnsweredDate = stringToDate(json.getString("answereddate"));
 			return p;
 		} catch (JSONException e) {
-			Log.e(JsonSerializer.class.getName(), "Error parsing JSON", e);
+			Log.e(Constants.LOG_TAG, "Error parsing JSON", e);
 			return null;
 		}
 	}
@@ -108,39 +109,39 @@ public class JsonSerializer implements bs.howdy.PrayerList.Service.Serializer {
 		try {
 			JSONObject json = new JSONObject(data);
 			JSONArray activePrayers = json.getJSONArray("activeprayers");
+			List<Prayer> currentPrayers = mdp.getPrayers();
 			if(activePrayers != null) {
 				for(int i = 0; i < activePrayers.length(); i++) {
-					loadPrayer(activePrayers.getJSONObject(i));
-					// Don't add if they're identical
+					loadPrayer(activePrayers.getJSONObject(i), currentPrayers);
 				}
 			}
 			
 			JSONArray answeredPrayers = json.getJSONArray("answeredprayers");
 			if(answeredPrayers != null) {
 				for(int i = 0; i < answeredPrayers.length(); i++) {
-					loadPrayer(answeredPrayers.getJSONObject(i));
-					// Don't add if they're identical
+					loadPrayer(answeredPrayers.getJSONObject(i), currentPrayers);
 				}
 			}
 		} catch (JSONException e) {
-			e.printStackTrace();
+			Log.e(Constants.LOG_TAG, "Error importing data.", e);
 		}
-		
 	}
 	
-	private void loadPrayer(JSONObject json) {
+	private void loadPrayer(JSONObject json, List<Prayer> currentPrayers) {
 		Prayer p = deserialize(json);
 		if(p == null) return;
-		Prayer existingPrayer = mdp.getPrayer(p.Id);
-		if(existingPrayer == null) {
-			mdp.addPrayer(p);
-		} else if(!existingPrayer.Title.equals(p.Title) 
-				|| !existingPrayer.Description.equals(p.Description) 
-				|| !existingPrayer.CreatedDate.equals(p.CreatedDate)
-				|| existingPrayer.AnsweredDate != p.AnsweredDate
-				|| !(existingPrayer.AnsweredDate != null && p.AnsweredDate != null && existingPrayer.AnsweredDate.equals(p.AnsweredDate))) {
+		boolean found = false;
+		for(Prayer existingPrayer : currentPrayers) {
+			if(existingPrayer.Title.equals(p.Title) 
+				&& existingPrayer.Description.equals(p.Description)) {
+				found = true;
+				break;
+			}
+		}
+		if(!found) {
 			mdp.addPrayer(p);
 		}
+			
 	}
 
 }

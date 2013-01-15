@@ -9,8 +9,8 @@
     	android:layout_height="wrap_content" 
     	android:layout_alignParentTop="true" 
     	android:layout_alignParentLeft="true" 
-    	android:layout_marginLeft="2dip" 
-    	android:layout_marginRight="4dip"
+    	android:layout_marginLeft="2sp" 
+    	android:layout_marginRight="4sp"
     	android:onClick="rowChecked"
     	/>
     	<RelativeLayout 
@@ -25,7 +25,7 @@
 		    	android:layout_width="fill_parent" 
 		    	android:layout_height="wrap_content" 
 		    	android:textSize="20sp" 
-		    	android:padding="2dip"
+		    	android:padding="2sp"
 		        android:layout_alignParentTop="true"
 		        android:layout_alignParentLeft="true"
 		    	android:layout_toLeftOf="@+id/answeredDate"
@@ -33,7 +33,7 @@
 		        android:gravity="left|center_vertical"
 		        android:lines="1" />
 		    <TextView android:textSize="16sp" 
-		    	android:padding="2dip" 
+		    	android:padding="2sp" 
 		    	android:id="@+id/answeredDate" 
 		    	android:singleLine="true" 
 		    	android:layout_width="wrap_content" 
@@ -51,13 +51,13 @@
 			   		android:id="@+id/moreImage" 
 			   		android:layout_width="wrap_content"
 			   		android:layout_height="wrap_content" 
-			   		android:layout_marginTop="4dip" />
+			   		android:layout_marginTop="4sp" />
 			    <TextView android:text="Description" 
 			    	android:id="@+id/description" 
 			    	android:layout_width="fill_parent" 
 			    	android:layout_height="wrap_content" 
 			    	android:textSize="14sp" 
-			    	android:padding="4dip" 
+			    	android:padding="4sp" 
 			        android:lines="1" />
 	        </LinearLayout>
     </RelativeLayout>

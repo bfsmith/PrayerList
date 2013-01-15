@@ -17,41 +17,54 @@ import bs.howdy.PrayerList.Service.SerializerService;
 
 public class TitlebarView extends LinearLayout {
 	private Context _context;
-	@Inject SerializerService mSerializerService;
 	
 	public TitlebarView(Context context, AttributeSet attrs)
 	{
 		super(context, attrs);
 		_context = context;
 		((InjectorProvider)context).getInjector().injectMembers(this);
-		
-		boolean showAdd = getShowAddAttribute(attrs);
+
 		
 		LayoutInflater layoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		layoutInflater.inflate(R.layout.titlebar, this);
 		
-		LinearLayout layout = (LinearLayout)findViewById(R.id.addPrayerWrapper);
+		boolean showAdd = getShowAddAttribute(attrs);
+		ImageView image = (ImageView)findViewById(R.id.addPrayerImg);
         if(showAdd) {
-        	layout.setOnClickListener(new OnClickListener() {
+        	image.setOnClickListener(new OnClickListener() {
 				public void onClick(View view) {
 					_context.startActivity(new Intent(_context, CreateEditPrayer.class));
 				}
             });
         } else {
-        	layout.setVisibility(View.GONE);
+        	image.setVisibility(View.GONE);
         }
         
-        ImageView saveImage = (ImageView)findViewById(R.id.saveLoadImg);
-        saveImage.setOnClickListener(new OnClickListener() {
-			public void onClick(View view) {
-				mSerializerService.loadAppData(_context, "data.txt");
-			}
-        });
+
+		boolean showSettings = getShowSettingsAttribute(attrs);
+		image = (ImageView)findViewById(R.id.settingsImg);
+        if(showSettings) {
+        	image.setOnClickListener(new OnClickListener() {
+				public void onClick(View view) {
+					_context.startActivity(new Intent(_context, Settings.class));
+				}
+	        });
+        }
+        else {
+        	image.setVisibility(View.GONE);
+        }
+        	
 	}
 	
 	private boolean getShowAddAttribute(AttributeSet attrs)
 	{
 		TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.TitlebarView);
 		return a.getBoolean(R.styleable.TitlebarView_showAdd, true);
+	}
+
+	private boolean getShowSettingsAttribute(AttributeSet attrs)
+	{
+		TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.TitlebarView);
+		return a.getBoolean(R.styleable.TitlebarView_showSettings, true);
 	}
 }

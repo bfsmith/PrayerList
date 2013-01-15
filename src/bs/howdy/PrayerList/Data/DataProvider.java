@@ -85,11 +85,7 @@ public class DataProvider implements bs.howdy.PrayerList.Service.DataProvider {
 	}
 	
 	public boolean addPrayer(Prayer p) {
-		return addPrayer(p, false);
-	}
-	
-	public boolean addPrayer(Prayer p, boolean forceAdd) {
-		if(p.Id > 0 && !forceAdd) {
+		if(p.Id > 0) {
 			return updatePrayer(p);
 		} 
 		int id = (int)_db.getWritableDatabase()

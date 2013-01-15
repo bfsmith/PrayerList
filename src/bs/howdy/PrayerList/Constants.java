@@ -37,4 +37,9 @@ public class Constants {
 		
 		public static final String TABLE_REMINDERS = "reminders";
 	}
+	
+	public class Preferences {
+		public static final String IMPORT_PRAYERS = "importprayers";
+		public static final String EXPORT_PRAYERS = "exportprayers";
+	}
 }
